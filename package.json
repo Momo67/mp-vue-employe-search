@@ -1,10 +1,21 @@
 {
   "name": "mp-vue-employe-search",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
+  "description": "A Vue.js component to search for employees in Goeland",
+  "main": "dist/EmployeSearch.umd.min.js",
+  "author": "Maurice Pittet <maurice.pittet@lausanne.ch>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Momo67/mp-vue-employe-search.git"
+  },
+  "homepage": "https://github.com/Momo67/mp-vue-employe-searcht#readme",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-lib": "vue-cli-service build --target lib --mode development --name EmployeSearch ./src/components/EmployeSearch.vue",
+    "build-wc": "vue-cli-service build --target wc --mode development --name employe-search ./src/components/EmployeSearch.vue",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
