@@ -1,6 +1,6 @@
 {
   "name": "mp-vue-employe-search",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A Vue.js component to search for employees in Goeland",
   "main": "dist/EmployeSearch.umd.min.js",
