@@ -28,6 +28,7 @@
     "vuetify": "^1.3.0"
   },
   "devDependencies": {
+    "@kazupon/vue-i18n-loader": "^0.3.0",
     "@mdi/font": "^3.4.93",
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
