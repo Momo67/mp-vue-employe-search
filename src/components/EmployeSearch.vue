@@ -226,6 +226,7 @@ const MODULE_NAME = 'EmployeSearch.vue'
 const log = (DEV) ? new Log(MODULE_NAME, 4) : new Log(MODULE_NAME, 2)
 
 export default {
+  name: 'EmployeSearch',
   props: {
     multi: {
       type: Boolean,

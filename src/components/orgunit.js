@@ -40,7 +40,7 @@ class OrgUnit {
 
       callback(__data)
 
-      log.l('## in OrgUnit::getList employees: ', __data)
+      log.l('## in OrgUnit::getList orgunits: ', __data)
     }).catch(error => {
       if (error.response) {
         log.e(`## in OrgUnit::getList Error data: ${error.response.data}, status: ${error.response.status}, headers: ${error.response.headers}`)
