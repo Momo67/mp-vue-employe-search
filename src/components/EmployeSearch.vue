@@ -1,218 +1,218 @@
 <template>
-  <div id="app">
-  <v-app id="mp-vue-employe-search">
-    <v-layout row>
-      <v-dialog v-model="dialog" max-width="800px" :fullscreen="$vuetify.breakpoint.xsOnly">
-        <template slot="activator">
-          <slot></slot>
-        </template>
+  <div id="mp-vue-employe-search">
+    <v-container grid-list-xs>
+      <v-layout row>
+        <v-dialog v-model="dialog" max-width="800px" :fullscreen="$vuetify.breakpoint.xsOnly">
+          <template slot="activator">
+            <slot></slot>
+          </template>
 
-        <v-card>
-          <v-card-title>
-            <span class="headline">{{multi ? $tc('userInterface.searchEmp' , 2) : $tc('userInterface.searchEmp', 1)}}</span>
-          </v-card-title>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn icon @click="show_form = !show_form">
-              <v-tooltip bottom>
-                <span slot="activator">
-                  <v-icon>{{ show_form ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                </span>
-                <span>
-                  {{$t('userInterface.displayCriterionBtn')}}
-                </span>
-              </v-tooltip>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{multi ? $tc('userInterface.searchEmp' , 2) : $tc('userInterface.searchEmp', 1)}}</span>
+            </v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn icon @click="show_form = !show_form">
+                <v-tooltip bottom>
+                  <span slot="activator">
+                    <v-icon>{{ show_form ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                  </span>
+                  <span>
+                    {{$t('userInterface.displayCriterionBtn')}}
+                  </span>
+                </v-tooltip>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
 
-        <v-card v-show="show_form">
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn icon @click="clear">
-              <v-tooltip bottom>
-                <span slot="activator">
-                  <v-icon>clear</v-icon>
-                </span>
-                <span>
-                  {{$t('userInterface.resetBtn')}}
-                </span>
-              </v-tooltip>
-            </v-btn>
-          </v-card-actions>
-          <v-card-text>
-            <v-container grid-list-md class="pt-0 pb-0">
-              <v-form ref="form">
-                <v-layout wrap>
-                  <v-flex xs12>
-                    <v-autocomplete
-                      v-model="employee.idou"
-                      :items="orgunits"
-                      color="primary"
-                      hide-no-data
-                      clearable
-                      item-text="Description"
-                      item-value="IdOrgUnit"
-                      :label="$t('userInterface.orgUnit')"
-                      :placeholder="$t('userInterface.searchHint')"
-                      browser-autocomplete="something-new"
-                    ></v-autocomplete>
-                  </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-text-field v-model="employee.nom" :label="$t('userInterface.lastName')" clearable :rules="[rules.nomprenom]" browser-autocomplete="something-new"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-text-field v-model="employee.prenom" :label="$t('userInterface.firstName')" clearable :rules="[rules.nomprenom]" browser-autocomplete="something-new"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-text-field v-model="employee.loginnt" label="Login NT" clearable :rules="[rules.loginnt]" browser-autocomplete="something-new"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-text-field v-model="employee.id" label="Id" clearable :rules="[rules.id]" browser-autocomplete="something-new"></v-text-field>
-                  </v-flex>
-                </v-layout>
-              </v-form>
-              <v-flex xs12>
-                <v-switch
-                  :label="$t('userInterface.displayNonActive')+': ' + (display_nonactive ? $t('userInterface.yes') : $t('userInterface.no'))"
-                  v-model="display_nonactive"
-                  :false-value="false"
-                  :true-value="true"
-                ></v-switch>
-              </v-flex>
-              <v-flex xs12>
-                <v-alert
-                  v-model="alert"
-                  dismissible
-                  type="warning"
-                  icon="error"
-                >
-                  {{$t('userInterface.alertMsg')}}
-                </v-alert>
-              </v-flex>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click.native="fetchData">{{$t('userInterface.searchBtn')}}</v-btn>
-            <v-btn icon @click="show_list = !show_list">
-              <v-tooltip bottom>
-                <span slot="activator">
-                  <v-icon>{{ show_list ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                </span>
-                <span>
-                  {{$t('userInterface.displayListBtn')}}
-                </span>
-              </v-tooltip>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+          <v-card v-show="show_form">
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn icon @click="clear">
+                <v-tooltip bottom>
+                  <span slot="activator">
+                    <v-icon>clear</v-icon>
+                  </span>
+                  <span>
+                    {{$t('userInterface.resetBtn')}}
+                  </span>
+                </v-tooltip>
+              </v-btn>
+            </v-card-actions>
+            <v-card-text>
+              <v-container grid-list-md class="pt-0 pb-0">
+                <v-form ref="form">
+                  <v-layout wrap>
+                    <v-flex xs12>
+                      <v-autocomplete
+                        v-model="employee.idou"
+                        :items="orgunits"
+                        color="primary"
+                        hide-no-data
+                        clearable
+                        item-text="Description"
+                        item-value="IdOrgUnit"
+                        :label="$t('userInterface.orgUnit')"
+                        :placeholder="$t('userInterface.searchHint')"
+                        browser-autocomplete="something-new"
+                      ></v-autocomplete>
+                    </v-flex>
+                    <v-flex xs12 sm6 md6>
+                      <v-text-field v-model="employee.nom" :label="$t('userInterface.lastName')" clearable :rules="[rules.nomprenom]" browser-autocomplete="something-new"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md6>
+                      <v-text-field v-model="employee.prenom" :label="$t('userInterface.firstName')" clearable :rules="[rules.nomprenom]" browser-autocomplete="something-new"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md6>
+                      <v-text-field v-model="employee.loginnt" label="Login NT" clearable :rules="[rules.loginnt]" browser-autocomplete="something-new"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md6>
+                      <v-text-field v-model="employee.id" label="Id" clearable :rules="[rules.id]" browser-autocomplete="something-new"></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                </v-form>
+                <v-flex xs12>
+                  <v-switch
+                    :label="$t('userInterface.displayNonActive')+': ' + (display_nonactive ? $t('userInterface.yes') : $t('userInterface.no'))"
+                    v-model="display_nonactive"
+                    :false-value="false"
+                    :true-value="true"
+                  ></v-switch>
+                </v-flex>
+                <v-flex xs12>
+                  <v-alert
+                    v-model="alert"
+                    dismissible
+                    type="warning"
+                    icon="error"
+                  >
+                    {{$t('userInterface.alertMsg')}}
+                  </v-alert>
+                </v-flex>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" flat @click.native="fetchData">{{$t('userInterface.searchBtn')}}</v-btn>
+              <v-btn icon @click="show_list = !show_list">
+                <v-tooltip bottom>
+                  <span slot="activator">
+                    <v-icon>{{ show_list ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                  </span>
+                  <span>
+                    {{$t('userInterface.displayListBtn')}}
+                  </span>
+                </v-tooltip>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
 
-        <v-card v-show="show_list">
-          <v-card-title>
-            <v-spacer></v-spacer>
-            <v-layout wrap>
-              <v-flex xs8 offset-xs4>
-                <v-text-field
-                  v-model="search"
-                  append-icon="search"
-                  :label="$t('userInterface.search')"
-                  single-line
-                  hide-details
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-card-title>
-          <v-card-text>
-            <v-layout wrap>
-              <v-flex xs12>
-                <v-data-table
-                  v-model="selected"
-                  :headers="headers"
-                  :items="employees"
-                  item-key="idemploye"
-                  :search="search"
-                  :hide-actions="false"
-                  :select-all="false"
-                  class="elevation-1"
-                  prev-icon="mdi-menu-left"
-                  next-icon="mdi-menu-right"
-                  sort-icon="mdi-menu-down"
-                  :no-data-text="$t('userInterface.noDataText')"
-                  :no-results-text="$t('dataIterator.noResultsText')"
-                  :rows-per-page-items="[5,10,25,{'text':$t('dataIterator.rowsPerPageAll'),'value':-1}]"
-                  :rows-per-page-text="$t('dataTable.rowsPerPageText')">
+          <v-card v-show="show_list">
+            <v-card-title>
+              <v-spacer></v-spacer>
+              <v-layout wrap>
+                <v-flex xs8 offset-xs4>
+                  <v-text-field
+                    v-model="search"
+                    append-icon="search"
+                    :label="$t('userInterface.search')"
+                    single-line
+                    hide-details
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-card-title>
+            <v-card-text>
+              <v-layout wrap>
+                <v-flex xs12>
+                  <v-data-table
+                    v-model="selected"
+                    :headers="headers"
+                    :items="employees"
+                    item-key="idemploye"
+                    :search="search"
+                    :hide-actions="false"
+                    :select-all="false"
+                    class="elevation-1"
+                    prev-icon="mdi-menu-left"
+                    next-icon="mdi-menu-right"
+                    sort-icon="mdi-menu-down"
+                    :no-data-text="$t('userInterface.noDataText')"
+                    :no-results-text="$t('dataIterator.noResultsText')"
+                    :rows-per-page-items="[5,10,25,{'text':$t('dataIterator.rowsPerPageAll'),'value':-1}]"
+                    :rows-per-page-text="$t('dataTable.rowsPerPageText')">
 
-                  <template slot="headerCell" slot-scope="props">
-                    <v-tooltip bottom>
-                      <span slot="activator">
-                        {{ props.header.text }}
-                      </span>
-                      <span>
-                        {{ props.header.text }}
-                      </span>
-                    </v-tooltip>
-                  </template>
+                    <template slot="headerCell" slot-scope="props">
+                      <v-tooltip bottom>
+                        <span slot="activator">
+                          {{ props.header.text }}
+                        </span>
+                        <span>
+                          {{ props.header.text }}
+                        </span>
+                      </v-tooltip>
+                    </template>
 
-                  <template slot="items" slot-scope="props">
-                    <tr :class="(props.item.isactive == '1') ? '' : 'disabled'" @click="if (showEmpDetails) props.expanded = !props.expanded">
-                      <td>
-                        <v-checkbox v-show="(props.item.isactive == '1') || allowNonactiveSelectable"
-                          @click.native.stop
-                          v-model="props.selected"
-                          :disabled="!((props.item.isactive == '1') || allowNonactiveSelectable)"
-                          primary
-                          hide-details
-                        ></v-checkbox>
-                      </td>
-                      <td>{{props.item.nom}}</td>
-                      <td>{{props.item.prenom}}</td>
-                      <td>{{getOUFinal(props.item.orgunits.OrgUnit)}}</td>
-                      <td>{{props.item.idemploye}}</td>
-                      <td>{{extractLoginNT(props.item.mainntlogin)}}</td>
-                    </tr>
-                  </template>
+                    <template slot="items" slot-scope="props">
+                      <tr :class="(props.item.isactive == '1') ? '' : 'disabled'" @click="if (showEmpDetails) props.expanded = !props.expanded">
+                        <td>
+                          <v-checkbox v-show="(props.item.isactive == '1') || allowNonactiveSelectable"
+                            @click.native.stop
+                            v-model="props.selected"
+                            :disabled="!((props.item.isactive == '1') || allowNonactiveSelectable)"
+                            primary
+                            hide-details
+                          ></v-checkbox>
+                        </td>
+                        <td>{{props.item.nom}}</td>
+                        <td>{{props.item.prenom}}</td>
+                        <td>{{getOUFinal(props.item.orgunits.OrgUnit)}}</td>
+                        <td>{{props.item.idemploye}}</td>
+                        <td>{{extractLoginNT(props.item.mainntlogin)}}</td>
+                      </tr>
+                    </template>
 
-                  <template slot="expand" slot-scope="props">
-                    <v-card flat>
-                      <v-card-text>
-                        <slot name="employee_info" :props="props">
-                          <div class="employee_info">
-                            <span>{{props.item.politesse}}</span><br>
-                            <span>{{props.item.prenom}}&nbsp;{{props.item.nom}}</span><br>
-                            <span>Téléphone prof.: {{props.item.telprof}}</span><br>
-                            <span>Email: {{props.item.email}}</span><br>
-                            <span>Unité organisationnelle: {{getOUPath(props.item.orgunits.OrgUnit)}}</span>
-                          </div>
-                        </slot>
-                      </v-card-text>
-                    </v-card>
-                  </template>
+                    <template slot="expand" slot-scope="props">
+                      <v-card flat>
+                        <v-card-text>
+                          <slot name="employee_info" :props="props">
+                            <div class="employee_info">
+                              <span>{{props.item.politesse}}</span><br>
+                              <span>{{props.item.prenom}}&nbsp;{{props.item.nom}}</span><br>
+                              <span>Téléphone prof.: {{props.item.telprof}}</span><br>
+                              <span>Email: {{props.item.email}}</span><br>
+                              <span>Unité organisationnelle: {{getOUPath(props.item.orgunits.OrgUnit)}}</span>
+                            </div>
+                          </slot>
+                        </v-card-text>
+                      </v-card>
+                    </template>
 
-                  <template slot="no-data">
-                    <v-alert :value="true" type="info">
-                      {{$t('userInterface.noResult')}}
-                    </v-alert>
-                  </template>
+                    <template slot="no-data">
+                      <v-alert :value="true" type="info">
+                        {{$t('userInterface.noResult')}}
+                      </v-alert>
+                    </template>
 
-                </v-data-table>
-              </v-flex>
-            </v-layout>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click.native="cancel">{{$t('userInterface.cancel')}}</v-btn>
-            <v-btn color="blue darken-1" flat @click.native="ok">OK</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-layout>
-  </v-app>
+                  </v-data-table>
+                </v-flex>
+              </v-layout>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" flat @click.native="cancel">{{$t('userInterface.cancel')}}</v-btn>
+              <v-btn color="blue darken-1" flat @click.native="ok">OK</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
 <script>
-import 'babel-polyfill'
+// import 'babel-polyfill'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loader
 
