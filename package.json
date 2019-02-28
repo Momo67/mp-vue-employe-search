@@ -1,6 +1,6 @@
 {
   "name": "mp-vue-employe-search",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": false,
   "description": "A Vue.js component to search for employees in Goeland",
   "author": "Maurice Pittet <maurice.pittet@lausanne.ch>",
