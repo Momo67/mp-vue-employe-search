@@ -18,17 +18,20 @@
 
     <v-content>
       <HelloWorld/>
+      recherche d'employés:<EmployeSearch>ici</EmployeSearch>
     </v-content>
   </v-app>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld'
+import EmployeSearch from './components/EmployeSearch'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    EmployeSearch
   },
   data () {
     return {
@@ -37,3 +40,19 @@ export default {
   }
 }
 </script>
+
+<style lang="css">
+  .demo {
+    width: 100px;
+    height: 10px;
+  }
+  .employee_info span {
+    /* text-decoration: line-through; */
+  }
+  #mp-vue-employe-search {
+    background-color: #FF0000;
+    width: 0px;
+    display: inline-block;
+    height: 0px;
+  }
+</style>
