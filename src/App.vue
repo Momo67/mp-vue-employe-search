@@ -18,7 +18,15 @@
 
     <v-content>
       <HelloWorld/>
-      recherche d'employés:<EmployeSearch>ici</EmployeSearch>
+      recherche d'employés:
+      <employe-search>
+        <template v-slot:default>ici</template>
+        <template v-slot:employee_info="employee">
+          <div class="employee_info">
+            <span>Nom: {{employee.props.item.prenom}}&nbsp;{{employee.props.item.nom}}</span>
+          </div>
+        </template>
+      </employe-search>
     </v-content>
   </v-app>
 </template>
@@ -31,7 +39,7 @@ export default {
   name: 'App',
   components: {
     HelloWorld,
-    EmployeSearch
+    'employe-search': EmployeSearch
   },
   data () {
     return {

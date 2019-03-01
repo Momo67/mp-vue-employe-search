@@ -13,32 +13,28 @@
             </v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn icon @click="show_form = !show_form">
-                <v-tooltip bottom>
-                  <span slot="activator">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on" @click="show_form = !show_form">
                     <v-icon>{{ show_form ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                  </span>
-                  <span>
-                    {{$t('userInterface.displayCriterionBtn')}}
-                  </span>
-                </v-tooltip>
-              </v-btn>
+                  </v-btn>
+                </template>
+                <span>{{$t('userInterface.displayCriterionBtn')}}</span>
+              </v-tooltip>
             </v-card-actions>
           </v-card>
 
           <v-card v-show="show_form">
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn icon @click="clear">
-                <v-tooltip bottom>
-                  <span slot="activator">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on" @click="clear">
                     <v-icon>clear</v-icon>
-                  </span>
-                  <span>
-                    {{$t('userInterface.resetBtn')}}
-                  </span>
-                </v-tooltip>
-              </v-btn>
+                  </v-btn>
+                </template>
+                <span>{{$t('userInterface.resetBtn')}}</span>
+              </v-tooltip>
             </v-card-actions>
             <v-card-text>
               <v-container grid-list-md class="pt-0 pb-0">
@@ -95,16 +91,14 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" flat @click.native="fetchData">{{$t('userInterface.searchBtn')}}</v-btn>
-              <v-btn icon @click="show_list = !show_list">
-                <v-tooltip bottom>
-                  <span slot="activator">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on" @click="show_list = !show_list">
                     <v-icon>{{ show_list ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-                  </span>
-                  <span>
-                    {{$t('userInterface.displayListBtn')}}
-                  </span>
-                </v-tooltip>
-              </v-btn>
+                  </v-btn>
+                </template>
+                <span>{{$t('userInterface.displayListBtn')}}</span>
+              </v-tooltip>
             </v-card-actions>
           </v-card>
 
@@ -143,18 +137,20 @@
                     :rows-per-page-items="[5,10,25,{'text':$t('dataIterator.rowsPerPageAll'),'value':-1}]"
                     :rows-per-page-text="$t('dataTable.rowsPerPageText')">
 
-                    <template slot="headerCell" slot-scope="props">
+                    <template v-slot:headerCell="props">
                       <v-tooltip bottom>
-                        <span slot="activator">
-                          {{ props.header.text }}
-                        </span>
+                        <template v-slot:activator="{ on }">
+                          <span v-on="on">
+                            {{ props.header.text }}
+                          </span>
+                        </template>
                         <span>
                           {{ props.header.text }}
                         </span>
                       </v-tooltip>
                     </template>
 
-                    <template slot="items" slot-scope="props">
+                    <template v-slot:items="props">
                       <tr :class="(props.item.isactive == '1') ? '' : 'disabled'" @click="if (showEmpDetails) props.expanded = !props.expanded">
                         <td>
                           <v-checkbox v-show="(props.item.isactive == '1') || allowNonactiveSelectable"
@@ -173,7 +169,7 @@
                       </tr>
                     </template>
 
-                    <template slot="expand" slot-scope="props">
+                    <template v-slot:expand="props">
                       <v-card flat>
                         <v-card-text>
                           <slot name="employee_info" :props="props">
@@ -189,8 +185,8 @@
                       </v-card>
                     </template>
 
-                    <template slot="no-data">
-                      <v-alert :value="true" type="info">
+                    <template v-slot:no-data>
+                      <v-alert :value="true" color="info" icon="info">
                         {{$t('userInterface.noResult')}}
                       </v-alert>
                     </template>
