@@ -122,7 +122,7 @@
                 <v-flex xs12>
                   <v-data-table
                     v-model="selected"
-                    :headers="headers"
+                    :headers="tableHeaders"
                     :items="employees"
                     item-key="idemploye"
                     :search="search"
@@ -211,7 +211,7 @@
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loader
 
-import { DEV, ORGUNIT_INIT, EMPLOYEE_INIT } from '../config'
+import { DEV, ORGUNIT_INIT, EMPLOYEE_INIT, HEADERS } from '../config'
 import { employe as EMPLOYE } from './employe'
 import { orgunit as ORGUNIT } from './orgunit'
 
@@ -248,6 +248,11 @@ export default {
       type: Boolean,
       default: true,
       require: false
+    },
+    headers: {
+      type: Array,
+      default: () => [],
+      require: false
     }
   },
   data () {
@@ -275,50 +280,7 @@ export default {
           return pattern.test(value) || 'Valeur invalide'
         }
       },
-      headers: [
-        {
-          text: '',
-          value: '',
-          align: 'left',
-          sortable: false,
-          width: 10
-        },
-        {
-          text: 'Nom',
-          value: 'nom',
-          align: 'left',
-          sortable: true,
-          width: 10
-        },
-        {
-          text: 'Prénom',
-          value: 'prenom',
-          align: 'left',
-          sortable: true,
-          width: 10
-        },
-        {
-          text: 'Unité organisationnelle',
-          value: 'orgunits',
-          align: 'left',
-          sortable: true,
-          width: 400
-        },
-        {
-          text: 'Id',
-          value: 'idemploye',
-          align: 'left',
-          sortable: true,
-          width: 10
-        },
-        {
-          text: 'Login NT',
-          value: 'mainntlogin',
-          align: 'left',
-          sortable: true,
-          width: 10
-        },
-      ],
+      tableHeaders: [],
       employee: undefined,
       employees: [],
       selected: [],
@@ -355,6 +317,7 @@ export default {
     initialize () {
       this.employee = Object.assign({}, EMPLOYEE_INIT)
       this.orgunit = Object.assign({}, ORGUNIT_INIT)
+      this.tableHeaders = (Array.isArray(this.headers) && this.headers.length !== 0) ? this.headers : HEADERS
       this.display_nonactive = this.showNonActive
       this.getOUList()
     },
