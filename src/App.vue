@@ -23,7 +23,9 @@
         <template v-slot:default>ici</template>
         <template v-slot:employee_info="employee">
           <div class="employee_info">
-            <span>Nom: {{employee.props.item.prenom}}&nbsp;{{employee.props.item.nom}}</span>
+            <span>Nom: {{employee.employee_data.prenom}}&nbsp;{{employee.employee_data.nom}}</span>
+            <br/><span>{{employee.employee_data.mainntlogin}}</span>
+            <br>{{test(employee.employee_data.orgunits)}}
           </div>
         </template>
       </employe-search>
@@ -34,6 +36,7 @@
 <script>
 import HelloWorld from './components/HelloWorld'
 import EmployeSearch from './components/EmployeSearch'
+import jsonpath from 'jsonpath'
 
 export default {
   name: 'App',
@@ -44,6 +47,11 @@ export default {
   data () {
     return {
       //
+    }
+  },
+  methods: {
+    test (orgunits) {
+      return jsonpath.value(orgunits, '$..OrgUnit[?(@.LevelOU==0)].OUName')
     }
   }
 }

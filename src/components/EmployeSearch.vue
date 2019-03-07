@@ -163,7 +163,7 @@
                         </td>
                         <td>{{props.item.nom}}</td>
                         <td>{{props.item.prenom}}</td>
-                        <td>{{getOUFinal(props.item.orgunits.OrgUnit)}}</td>
+                        <td>{{getOUFinal(props.item.orgunits)}}</td>
                         <td>{{props.item.idemploye}}</td>
                         <td>{{extractLoginNT(props.item.mainntlogin)}}</td>
                       </tr>
@@ -172,9 +172,8 @@
                     <template v-slot:expand="props">
                       <v-card flat>
                         <v-card-text>
-                          <slot name="employee_info" :props="props">
+                          <slot name="employee_info" :employee_data="props.item">
                             <div class="employee_info">
-                              <span>{{props.item.politesse}}</span><br>
                               <span>{{props.item.prenom}}&nbsp;{{props.item.nom}}</span><br>
                               <span>Téléphone prof.: {{props.item.telprof}}</span><br>
                               <span>Email: {{props.item.email}}</span><br>
@@ -217,6 +216,7 @@ import { employe as EMPLOYE } from './employe'
 import { orgunit as ORGUNIT } from './orgunit'
 
 import Log from 'cgil-log'
+import jsonpath from 'jsonpath'
 
 const MODULE_NAME = 'EmployeSearch.vue'
 const log = (DEV) ? new Log(MODULE_NAME, 4) : new Log(MODULE_NAME, 2)
@@ -412,22 +412,13 @@ export default {
         return ''
       }
     },
-    getOUFinal (orgunits)
-    {
+    getOUFinal (orgunits) {
       if (orgunits !== undefined) {
-        if (Array.isArray(orgunits)) {
-          let __myorgunits = orgunits.slice()
-          __myorgunits.sort(function (a, b) {
-            return parseInt(b.LevelOU) - parseInt(a.LevelOU)
-          })
-          let __oufinal = ''
-          __myorgunits.forEach(function (orgunit, index, array) {
-            if (index === array.length-1)
-              __oufinal = orgunit.OUName
-          })
-          return __oufinal
-        } else {
-          return orgunits.OUName
+        if (Array.isArray(orgunits.OrgUnit)) {
+          return jsonpath.value(orgunits, '$..OrgUnit[?(@.LevelOU==0)].OUName')
+        }
+        else {
+          return orgunits.OrgUnit.OUName
         }
       } else {
         return ''
