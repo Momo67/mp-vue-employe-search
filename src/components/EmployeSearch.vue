@@ -152,28 +152,30 @@
 
                     <template v-slot:items="props">
                       <tr :class="(props.item.isactive == '1') ? '' : 'disabled'" @click="if (showEmpDetails) props.expanded = !props.expanded">
-                        <td>
-                          <v-checkbox v-show="(props.item.isactive == '1') || allowNonactiveSelectable"
-                            @click.native.stop
-                            v-model="props.selected"
-                            :disabled="!((props.item.isactive == '1') || allowNonactiveSelectable)"
-                            primary
-                            hide-details
-                          ></v-checkbox>
-                        </td>
-                        <td>{{props.item.nom}}</td>
-                        <td>{{props.item.prenom}}</td>
-                        <td>{{getOUFinal(props.item.orgunits)}}</td>
-                        <td>{{props.item.idemploye}}</td>
-                        <td>{{extractLoginNT(props.item.mainntlogin)}}</td>
+                        <slot name="employee_data" :employee_data="props.item">
+                          <td>
+                            <v-checkbox v-show="(props.item.isactive == '1') || allowNonactiveSelectable"
+                              @click.native.stop
+                              v-model="props.selected"
+                              :disabled="!((props.item.isactive == '1') || allowNonactiveSelectable)"
+                              primary
+                              hide-details
+                            ></v-checkbox>
+                          </td>
+                          <td>{{props.item.nom}}</td>
+                          <td>{{props.item.prenom}}</td>
+                          <td>{{getOUFinal(props.item.orgunits)}}</td>
+                          <td>{{props.item.idemploye}}</td>
+                          <td>{{extractLoginNT(props.item.mainntlogin)}}</td>
+                        </slot>
                       </tr>
                     </template>
 
                     <template v-slot:expand="props">
                       <v-card flat>
                         <v-card-text>
-                          <slot name="employee_info" :employee_data="props.item">
-                            <div class="employee_info">
+                          <slot name="employee_details" :employee_details="props.item">
+                            <div class="employee_details">
                               <span>{{props.item.prenom}}&nbsp;{{props.item.nom}}</span><br>
                               <span>Téléphone prof.: {{props.item.telprof}}</span><br>
                               <span>Email: {{props.item.email}}</span><br>
@@ -410,7 +412,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="css" scoped>
-#inspire {
+#mp-vue-employe-search {
   background-color: transparent;
 }
 h3 {

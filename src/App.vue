@@ -16,13 +16,21 @@
       <HelloWorld/>recherche d'employés:
       <employe-search :headers="headers">
         <template v-slot:default>ici</template>
-        <template v-slot:employee_info="employee">
-          <div class="employee_info">
-            <span>Nom: {{employee.employee_data.prenom}}&nbsp;{{employee.employee_data.nom}}</span>
+        <template v-slot:employee_data="employee">
+          <!-- <td></td> -->
+          <td>{{employee.employee_data.nom}}</td>
+          <td>{{employee.employee_data.prenom}}</td>
+          <td>{{getOUFinal(employee.employee_data.orgunits)}}</td>
+          <td>{{employee.employee_data.idemploye}}</td>
+          <td>{{employee.employee_data.mainntlogin}}</td>
+        </template>
+        <template v-slot:employee_details="employee">
+          <div class="employee_details">
+            <span>Nom: {{employee.employee_details.prenom}}&nbsp;{{employee.employee_details.nom}}</span>
             <br>
-            <span>{{employee.employee_data.mainntlogin}}</span>
+            <span>{{employee.employee_details.mainntlogin}}</span>
             <br>
-            {{test(employee.employee_data.orgunits)}}
+            {{getOUFinal(employee.employee_details.orgunits)}}
           </div>
         </template>
       </employe-search>
@@ -44,6 +52,7 @@ export default {
   data () {
     return {
       headers : [
+/*        
         {
           text: '',
           value: '',
@@ -51,6 +60,7 @@ export default {
           sortable: false,
           width: 10
         },
+*/        
         {
           text: 'Nom',
           value: 'nom',
@@ -90,7 +100,7 @@ export default {
     }
   },
   methods: {
-    test (orgunits) {
+    getOUFinal (orgunits) {
       return jsonpath.value(orgunits, '$..OrgUnit[?(@.LevelOU==0)].OUName')
     }
   }
@@ -102,7 +112,7 @@ export default {
   width: 100px;
   height: 10px;
 }
-.employee_info span {
+.employee_details span {
   /* text-decoration: line-through; */
 }
 #mp-vue-employe-search {
