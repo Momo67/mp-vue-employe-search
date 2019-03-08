@@ -214,6 +214,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loader
 
 import { DEV, ORGUNIT_INIT, EMPLOYEE_INIT, HEADERS } from '../config'
+import { ORGUNIT_URL_AJAX, EMP_URL_AJAX } from '../config'
 import { employe as EMPLOYE } from './employe'
 import { orgunit as ORGUNIT } from './orgunit'
 
@@ -254,6 +255,16 @@ export default {
     headers: {
       type: Array,
       default: () => [],
+      require: false
+    },
+    get_data_url: {
+      type: Object,
+      default: () => {
+        return {
+          orgunit_url: '',
+          employee_url: ''
+        }
+      },
       require: false
     }
   },
@@ -319,6 +330,8 @@ export default {
     initialize () {
       this.employee = Object.assign({}, EMPLOYEE_INIT)
       this.orgunit = Object.assign({}, ORGUNIT_INIT)
+      this.get_data_url.orgunit_url = (this.get_data_url.orgunit_url === '') ? ORGUNIT_URL_AJAX : this.get_data_url.orgunit_url
+      this.get_data_url.employee_url = (this.get_data_url.employee_url === '') ? EMP_URL_AJAX : this.get_data_url.employee_url
       this.tableHeaders = (Array.isArray(this.headers) && this.headers.length !== 0) ? this.headers : HEADERS
       this.display_nonactive = this.showNonActive
       this.getOUList()
@@ -343,7 +356,7 @@ export default {
         this.alert = true
         this.show_form = true
       } else {
-        EMPLOYE.getList (this.employee, this.display_nonactive, (data) => {
+        EMPLOYE.getList (this.employee, this.get_data_url.employee_url, this.display_nonactive, (data) => {
           this.employees = data
           this.show_form = false
           this.show_list = true
@@ -390,7 +403,7 @@ export default {
       }
     },
     getOUList() {
-      ORGUNIT.getList (this.orgunit, (data) => {
+      ORGUNIT.getList (this.orgunit, this.get_data_url.orgunit_url, (data) => {
         this.orgunits = data
       })
     },

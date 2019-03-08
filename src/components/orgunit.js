@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { DEV, ORGUNIT_URL_AJAX } from '../config'
+import { DEV } from '../config'
 import Log from 'cgil-log'
 
 const MODULE_NAME = 'orgunit.js'
@@ -21,8 +21,8 @@ class OrgUnit {
   }
 
 
-  getList (orgunit, callback) {
-    let __fetch_url = `${ORGUNIT_URL_AJAX}/uniteorg_get_liste.php`
+  getList (orgunit, get_data_url, callback) {
+    let __fetch_url = `${get_data_url}/uniteorg_get_liste.php`
     axios.post(__fetch_url, {params: orgunit}).then(response => {
       let __data = response.data.OrgUnit
       __data.sort(function (a, b) {

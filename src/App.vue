@@ -14,7 +14,7 @@
 
     <v-content>
       <HelloWorld/>recherche d'employés:
-      <employe-search :headers="headers">
+      <employe-search v-bind="init">
         <template v-slot:default>ici</template>
         <template v-slot:employee_data="employee">
           <!-- <td></td> -->
@@ -51,52 +51,62 @@ export default {
   },
   data () {
     return {
-      headers : [
-/*        
-        {
-          text: '',
-          value: '',
-          align: 'left',
-          sortable: false,
-          width: 10
+      init: {
+        propNumber: 666,
+        propString: 'The Beast',
+        /*
+        get_data_url: {
+          orgunit_url: 'http://golux.lausanne.ch/goeland/orgunit/ajax',
+          employee_url: 'http://golux.lausanne.ch/goeland/employe/ajax'
         },
-*/        
-        {
-          text: 'Nom',
-          value: 'nom',
-          align: 'left',
-          sortable: true,
-          width: 10
-        }, 
-        {
-          text: 'Prénom',
-          value: 'prenom',
-          align: 'left',
-          sortable: true,
-          width: 10
-        }, 
-        {
-          text: 'Unité organisationnelle',
-          value: 'orgunits',
-          align: 'left',
-          sortable: true,
-          width: 400
-        }, 
-        {
-          text: 'Id',
-          value: 'idemploye',
-          align: 'left',
-          sortable: true,
-          width: 10
-        }, 
-        {
-          text: 'Login NT',
-          value: 'mainntlogin',
-          align: 'left',
-          sortable: true,
-          width: 10
-        }
-      ]
+        */
+        headers : [
+  /*        
+          {
+            text: '',
+            value: '',
+            align: 'left',
+            sortable: false,
+            width: 10
+          },
+  */        
+          {
+            text: 'Nom',
+            value: 'nom',
+            align: 'left',
+            sortable: true,
+            width: 10
+          }, 
+          {
+            text: 'Prénom',
+            value: 'prenom',
+            align: 'left',
+            sortable: true,
+            width: 10
+          }, 
+          {
+            text: 'Unité organisationnelle',
+            value: 'orgunits',
+            align: 'left',
+            sortable: true,
+            width: 400
+          }, 
+          {
+            text: 'Id',
+            value: 'idemploye',
+            align: 'left',
+            sortable: true,
+            width: 10
+          }, 
+          {
+            text: 'Login NT',
+            value: 'mainntlogin',
+            align: 'left',
+            sortable: true,
+            width: 10
+          }
+        ]
+      },
     }
   },
   methods: {

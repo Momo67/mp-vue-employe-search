@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { DEV, EMP_URL_AJAX } from '../config'
+import { DEV } from '../config'
 import Log from 'cgil-log'
 
 const MODULE_NAME = 'employe.js'
@@ -21,7 +21,7 @@ class Employe {
   }
 
 
-  getList (employe, display_nonactive, callback) {
+  getList(employe, get_data_url, display_nonactive, callback) {
     if (employe.idou == null) {
       employe.idou = 0
     }
@@ -36,7 +36,7 @@ class Employe {
       employe.prenom += '*'
     }
 
-    let __fetch_url = `${EMP_URL_AJAX}/employe_get_liste.php`
+    let __fetch_url = `${get_data_url}/employe_get_liste.php`
     axios.post(__fetch_url, {params: employe}).then(response => {
       let __data = response.data.Employe.filter(employe => (employe.IsActive === '1') || display_nonactive)
 
