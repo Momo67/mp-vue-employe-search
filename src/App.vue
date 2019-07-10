@@ -13,16 +13,17 @@
     </v-toolbar>
 
     <v-content>
-      <HelloWorld/>recherche d'employés:
+      <HelloWorld/>
+      recherche d'employés:
       <employe-search v-bind="init">
         <template v-slot:default>ici</template>
         <template v-slot:employee_data="employee">
           <!-- <td></td> -->
-          <td>{{employee.employee_data.nom}}</td>
-          <td>{{employee.employee_data.prenom}}</td>
-          <td>{{getOUFinal(employee.employee_data.orgunits)}}</td>
-          <td>{{employee.employee_data.idemploye}}</td>
-          <td>{{employee.employee_data.mainntlogin}}</td>
+          <td class="employee_data_item">{{employee.employee_data.nom}}</td>
+          <td class="employee_data_item">{{employee.employee_data.prenom}}</td>
+          <td class="employee_data_item">{{getOUFinal(employee.employee_data.orgunits)}}</td>
+          <td class="employee_data_item">{{employee.employee_data.idemploye}}</td>
+          <td class="employee_data_item">{{employee.employee_data.mainntlogin}}</td>
         </template>
         <template v-slot:employee_details="employee">
           <div class="employee_details">
@@ -30,7 +31,7 @@
             <br>
             <span>{{employee.employee_details.mainntlogin}}</span>
             <br>
-            {{getOUFinal(employee.employee_details.orgunits)}}
+            <span>{{getOUFinal(employee.employee_details.orgunits)}}</span>
           </div>
         </template>
       </employe-search>
@@ -54,12 +55,10 @@ export default {
       init: {
         propNumber: 666,
         propString: 'The Beast',
-        /*
         get_data_url: {
-          orgunit_url: 'http://golux.lausanne.ch/goeland/orgunit/ajax',
-          employee_url: 'http://golux.lausanne.ch/goeland/employe/ajax'
+          orgunit_url: 'http://mygolux.lausanne.ch/goeland/uniteorg/ajax',
+          employee_url: 'http://mygolux.lausanne.ch/goeland/employe/ajax'
         },
-        */
         headers : [
   /*        
           {
@@ -123,7 +122,10 @@ export default {
   height: 10px;
 }
 .employee_details span {
-  /* text-decoration: line-through; */
+  text-decoration: line-through;
+}
+.employee_data_item {
+  vertical-align: auto;
 }
 #mp-vue-employe-search {
   background-color: #ff0000;
