@@ -107,13 +107,19 @@
               <v-spacer></v-spacer>
               <v-layout wrap>
                 <v-flex xs8 offset-xs4>
-                  <v-text-field
-                    v-model="search"
-                    append-icon="search"
-                    :label="$t('userInterface.search')"
-                    single-line
-                    hide-details
-                  ></v-text-field>
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-on="on"
+                        v-model="search"
+                        append-icon="search"
+                        :label="$t('userInterface.search')"
+                        single-line
+                        hide-details
+                      ></v-text-field>
+                    </template>
+                    <span>{{$t('userInterface.searchListLabel')}}</span>
+                  </v-tooltip>
                 </v-flex>
               </v-layout>
             </v-card-title>
@@ -151,7 +157,7 @@
                     </template>
 
                     <template v-slot:items="props">
-                      <tr :class="(props.item.isactive == '1') ? '' : 'disabled'" @click="if (showEmpDetails) props.expanded = !props.expanded">
+                      <tr :class="(props.item.isactive == '1') ? '' : 'disabled'" class="employee_data_item" @click="if (showEmpDetails) props.expanded = !props.expanded">
                         <slot name="employee_data" :employee_data="props.item">
                           <td>
                             <v-checkbox v-show="(props.item.isactive == '1') || allowNonactiveSelectable"
@@ -289,7 +295,7 @@ export default {
           return pattern.test(value) || 'Valeur invalide'
         },
         loginnt: value => {
-          const pattern = /^undefined|[[a-zA-Z]{1,5}\d+\*?]$/
+          const pattern = /^undefined|[a-zA-Z_*]{1,5}\d*\*?$/
           return pattern.test(value) || 'Valeur invalide'
         }
       },

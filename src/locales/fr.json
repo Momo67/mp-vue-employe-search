@@ -6,6 +6,7 @@
       "alertMsg": "Vous devez entrer au moins un critère!",
       "searchBtn": "Rechercher",
       "search": "Recherche...",
+      "searchListLabel": "Recherche dans la liste des résultats",
       "cancel": "Annuler",
       "displayListBtn": "Afficher / masquer la liste des résultats",
       "displayCriterionBtn": "Afficher / masquer les critères de sélection",

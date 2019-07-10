@@ -6,6 +6,7 @@
       "alertMsg": "You must enter at least one criterion!",
       "searchBtn": "Search",
       "search": "Search...",
+      "searchListLabel": "Search in the results list",
       "cancel": "Cancel",
       "displayListBtn": "Show / hide list of results",
       "displayCriterionBtn": "Show / hide selection criterions",
