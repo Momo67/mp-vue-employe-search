@@ -157,7 +157,7 @@
                     </template>
 
                     <template v-slot:items="props">
-                      <tr :class="(props.item.isactive == '1') ? '' : 'disabled'" class="employee_data_item" @click="if (showEmpDetails) props.expanded = !props.expanded">
+                      <tr :class="(props.item.isactive === '1') ? '' : 'disabled'" class="employee_data_item" @click="if (showEmpDetails) props.expanded = !props.expanded" :key="props.index">
                         <slot name="employee_data" :employee_data="props.item">
                           <td>
                             <v-checkbox v-show="(props.item.isactive == '1') || allowNonactiveSelectable"
