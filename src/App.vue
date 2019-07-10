@@ -19,11 +19,11 @@
         <template v-slot:default>ici</template>
         <template v-slot:employee_data="employee">
           <!-- <td></td> -->
-          <td class="employee_data_item">{{employee.employee_data.nom}}</td>
-          <td class="employee_data_item">{{employee.employee_data.prenom}}</td>
-          <td class="employee_data_item">{{getOUFinal(employee.employee_data.orgunits)}}</td>
-          <td class="employee_data_item">{{employee.employee_data.idemploye}}</td>
-          <td class="employee_data_item">{{employee.employee_data.mainntlogin}}</td>
+          <td>{{employee.employee_data.nom}}</td>
+          <td>{{employee.employee_data.prenom}}</td>
+          <td>{{getOUFinal(employee.employee_data.orgunits)}}</td>
+          <td>{{employee.employee_data.idemploye}}</td>
+          <td>{{employee.employee_data.mainntlogin}}</td>
         </template>
         <template v-slot:employee_details="employee">
           <div class="employee_details">
