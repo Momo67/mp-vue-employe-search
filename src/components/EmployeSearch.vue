@@ -265,12 +265,10 @@ export default {
     },
     get_data_url: {
       type: Object,
-      default: () => {
-        return {
+      default: () => ({
           orgunit_url: '',
           employee_url: ''
-        }
-      },
+      }),
       require: false
     }
   },
