@@ -1,7 +1,7 @@
 {
   "name": "mp-vue-employe-search",
   "version": "3.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build-lib": "vue-cli-service build --target lib --mode development --name EmployeSearch ./src/components/EmployeSearch.vue",
