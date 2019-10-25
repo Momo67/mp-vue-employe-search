@@ -19,7 +19,8 @@
       <HelloWorld/>
       <employe-search
         :show-emp-details="true"
-        fullscreen
+        :fullscreen="false"
+        :multi="false"
       >
         <template v-slot:activator="{ on }">
           <v-btn color="success" v-on="on">ici</v-btn>

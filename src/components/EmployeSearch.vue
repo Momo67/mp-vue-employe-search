@@ -138,6 +138,7 @@
                           item-key="idemploye"
                           :search="search"
                           :show-select="select"
+                          :single-select="!multi"
                           :show-expand="showEmpDetails"
                           :single-expand="true"
                           :calculate-widths="true"
