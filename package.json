@@ -62,5 +62,12 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "homepage": "https://github.com/Momo67/mp-vue-employe-search#readme",
+  "license": "MIT",
+  "main": "dist/EmployeSearch.umd.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Momo67/mp-vue-employe-search.git"
+  }
 }
