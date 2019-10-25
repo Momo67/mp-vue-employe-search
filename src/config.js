@@ -43,7 +43,7 @@ export const HEADERS = [
     value: 'orgunits',
     align: 'left',
     sortable: true,
-    width: 400
+    width: 200
   }, 
   {
     text: 'Id',
@@ -58,5 +58,9 @@ export const HEADERS = [
     align: 'left',
     sortable: true,
     width: 10
-  }
+  },
+  {
+    text: '',
+    value: 'data-table-expand'
+  },
 ]

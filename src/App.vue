@@ -17,20 +17,30 @@
 
     <v-content>
       <HelloWorld/>
+      <employe-search
+        :show-emp-details="true"
+        fullscreen
+      >
+        <template v-slot:activator="{ on }">
+          <v-btn color="success" v-on="on">ici</v-btn>
+        </template>
+      </employe-search>
     </v-content>
   </v-app>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld';
+import EmployeSearch from './components/EmployeSearch';
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
+    EmployeSearch
   },
   data: () => ({
     //
-  }),
+  })
 };
 </script>
