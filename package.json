@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build-lib": "vue-cli-service build --target lib --mode development --name EmployeSearch ./src/components/EmployeSearch.vue",
+    "build-wc": "vue-cli-service build --target wc --mode development --name employe-search ./src/components/EmployeSearch.vue",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
