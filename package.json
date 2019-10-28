@@ -1,6 +1,6 @@
 {
   "name": "mp-vue-employe-search",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
