@@ -446,7 +446,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="css" scoped>
+<style lang="css">
 #mp-vue-employe-search {
   background-color: transparent;
 }
@@ -472,6 +472,9 @@ td {
 }
 .expanded {
   background: white;
+}
+.container {
+  padding: 1px;
 }
 </style>
 
