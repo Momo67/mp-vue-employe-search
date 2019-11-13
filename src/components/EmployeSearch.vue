@@ -133,7 +133,7 @@
                         <v-data-table
                           v-model="selected"
                           :headers="tableHeaders"
-                          :hide-default-header="true"
+                          :hide-default-header="false"
                           :items="employees"
                           item-key="idemploye"
                           :search="search"
@@ -155,10 +155,13 @@
                             pageText: $t('dataIterator.pageText')
                           }">
 
+                          <!--
                           <template v-slot:header.data-table-select="{ on, props }">
 
                           </template>
+                          -->
 
+                          <!--
                           <template v-slot:header="{ props: { headers } }">
                             <thead>
                               <tr>
@@ -166,12 +169,13 @@
                               </tr>
                             </thead>
                           </template>
+                          -->
 
-    <!--
-                        <template v-slot:item.data-table-select="{ isSelected, select }">
-                          <v-simple-checkbox color="green" :value="isSelected" @input="select($event)"></v-simple-checkbox>
-                        </template>                    
-    -->                    
+                          <!--
+                          <template v-slot:item.data-table-select="{ isSelected, select }">
+                            <v-simple-checkbox color="green" :value="isSelected" @input="select($event)"></v-simple-checkbox>
+                          </template>                    
+                        -->                    
 
                           <template v-slot:item.orgunits="{ item }">
                             {{getOUFinal(item.orgunits)}}

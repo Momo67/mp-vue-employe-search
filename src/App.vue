@@ -20,7 +20,7 @@
       <employe-search
         :show-emp-details="true"
         :fullscreen="false"
-        :multi="false"
+        :multi="true"
       >
         <template v-slot:activator="{ on }">
           <v-btn color="success" v-on="on">ici</v-btn>
