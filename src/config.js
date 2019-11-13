@@ -18,13 +18,6 @@ export const ORGUNIT_INIT = {
 
 export const HEADERS = [
   {
-    text: '',
-    value: '',
-    align: 'left',
-    sortable: false,
-    width: 10
-  },
-  {
     text: 'Nom',
     value: 'nom',
     align: 'left',

@@ -143,6 +143,8 @@
                           :single-expand="true"
                           :calculate-widths="true"
                           class="elevation-1"
+                          :sort-by.sync="computedSortByField"
+                          :sort-desc.sync="sortDesc"
                           :no-data-text="$t('userInterface.noDataText')"
                           :no-results-text="$t('dataIterator.noResultsText')"
                           :footer-props="{
@@ -284,6 +286,16 @@ export default {
       default: () => [],
       require: false
     },
+    sortByField: {
+      type: String,
+      default: '',
+      require: false
+    },
+    sortDesc: {
+      type: Boolean,
+      default: false,
+      require: false
+    },
     get_data_url: {
       type: Object,
       default: () => ({
@@ -346,6 +358,11 @@ export default {
         }
       },
       deep: true
+    }
+  },
+  computed: {
+    computedSortByField: function () {
+      return (this.sortByField === '') ? this.tableHeaders[0].value : this.sortByField
     }
   },
   methods: {
