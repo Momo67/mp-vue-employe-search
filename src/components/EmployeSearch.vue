@@ -1,6 +1,6 @@
 <template>
   <div id="mp-vue-employe-search">
-        <v-dialog v-model="dialog" max-width="800px" :fullscreen="fullscreen" :scrollable="false">
+        <v-dialog v-model="dialog" :max-width="maxWidth" :fullscreen="fullscreen" :scrollable="false" class="employe-search">
           <template v-slot:activator="{ on }">
             <slot name="activator" v-bind:on="on"></slot>
           </template>
@@ -143,6 +143,7 @@
                           :single-expand="true"
                           :calculate-widths="true"
                           class="elevation-1"
+                          :multi-sort="multipleSort"
                           :sort-by.sync="computedSortByField"
                           :sort-desc.sync="sortDesc"
                           :no-data-text="$t('userInterface.noDataText')"
@@ -246,6 +247,11 @@ const log = (DEV) ? new Log(MODULE_NAME, 4) : new Log(MODULE_NAME, 2)
 export default {
   name: 'EmployeSearch',
   props: {
+    maxWidth: {
+      type: [String, Number],
+      default: '950px',
+      require: false
+    },
     select: {
       type: Boolean,
       default: true,
@@ -287,13 +293,18 @@ export default {
       require: false
     },
     sortByField: {
-      type: String,
+      type: [String, Array],
       default: '',
       require: false
     },
     sortDesc: {
       type: Boolean,
       default: false,
+      require: false
+    },
+    multipleSort: {
+      type: Boolean,
+      default: true,
       require: false
     },
     get_data_url: {
@@ -361,9 +372,14 @@ export default {
     }
   },
   computed: {
-    computedSortByField: function () {
-      return (this.sortByField === '') ? this.tableHeaders[0].value : this.sortByField
-    }
+    computedSortByField: {
+      get: function () {
+        return (this.sortByField === '') || (this.sortByField === []) ? [this.tableHeaders[0].value, this.tableHeaders[1].value] : this.sortByField
+      },
+      set: function () {
+
+      }
+    } 
   },
   methods: {
     display () {

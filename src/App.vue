@@ -21,6 +21,8 @@
         :show-emp-details="true"
         :fullscreen="false"
         :multi="false"
+        sort-by-field='nom'
+        :multiple-sort="false"
       >
         <template v-slot:activator="{ on }">
           <v-btn color="success" v-on="on">ici</v-btn>
