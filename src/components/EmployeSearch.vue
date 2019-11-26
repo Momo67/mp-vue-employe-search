@@ -91,8 +91,10 @@
                     </v-container>
                   </v-card-text>
                   <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.native="fetchData">{{$t('userInterface.searchBtn')}}</v-btn>
+                    <slot name="search" v-bind:on="{ fetchData }">
+                      <v-spacer></v-spacer>
+                      <v-btn color="blue darken-1" text @click.native="fetchData">{{$t('userInterface.searchBtn')}}</v-btn>
+                    </slot>
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on }">
                         <v-btn icon v-on="on" @click="show_list = !show_list">
@@ -192,7 +194,7 @@
                             <td class="expanded" :colspan="headers.length">
                             <v-card flat>
                               <v-card-text>
-                                <slot name="employee_details" :employee_details="item">
+                                <slot name="employee_details" v-bind:props="item">
                                   <div class="employee_details">
                                     <span>{{item.prenom}}&nbsp;{{item.nom}}</span><br>
                                     <span>Téléphone prof.: {{item.telprof}}</span><br>
@@ -216,9 +218,11 @@
                     </v-layout>
                   </v-card-text>
                   <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.native="cancel">{{$t('userInterface.cancel')}}</v-btn>
-                    <v-btn color="blue darken-1" text @click.native="ok">OK</v-btn>
+                    <slot name="actions" v-bind:on="{ ok, cancel}" v-bind:props="{ selected }">
+                      <v-spacer></v-spacer>
+                      <v-btn color="blue darken-1" text @click.native="cancel">{{$t('userInterface.cancel')}}</v-btn>
+                      <v-btn color="blue darken-1" text @click.native="ok">OK</v-btn>
+                    </slot>
                   </v-card-actions>
                 </v-card>
               </v-flex>
