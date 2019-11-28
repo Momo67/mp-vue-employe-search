@@ -28,10 +28,12 @@
         <template v-slot:activator="{ on }">
           <v-btn color="success" v-on="on">ici</v-btn>
         </template>
+        <!--
         <template v-slot:search="{ on: { fetchData } }">
           <v-spacer></v-spacer>
           <v-btn color="info" @click.native="fetchData">Rechercher</v-btn>
         </template>
+        -->
 
         <template v-slot:employee_details="{ props: item }">
           <employe
