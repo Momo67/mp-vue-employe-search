@@ -1,7 +1,9 @@
 <template>
   <v-app id="mp-vue-employe-search">
     <v-content>
+      <!--
       <v-dialog v-model="dialog" :max-width="maxWidth" :fullscreen="fullscreen" :scrollable="false" class="employe-search">
+      -->
         <template v-slot:activator="{ on }">
           <slot name="activator" v-bind:on="on"></slot>
         </template>
@@ -11,7 +13,7 @@
             <v-flex xs12>
               <v-card>
                 <v-card-title>
-                  <span class="headline">{{multi ? $tc('userInterface.searchEmp' , 2) : $tc('userInterface.searchEmp', 1)}}</span>
+                  <span class="headline">{{select ? (multi ? $tc('userInterface.searchEmp' , 2) : $tc('userInterface.searchEmp', 1)) : $tc('userInterface.searchEmp', 3)}}</span>
                 </v-card-title>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -229,7 +231,9 @@
             </v-flex>
           </v-layout>
         </v-container>
+      <!--
       </v-dialog>
+      -->
     </v-content>
   </v-app>
 </template>

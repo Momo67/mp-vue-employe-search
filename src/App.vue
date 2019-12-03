@@ -17,58 +17,69 @@
 
     <v-content>
       <HelloWorld/>
-      <employe-search
-        id="employe-search"
-        :show-emp-details="true"
-        :fullscreen="false"
-        :multi="false"
-        sort-by-field='nom'
-        :multiple-sort="false"
-      >
-        <template v-slot:activator="{ on }">
-          <v-btn color="success" v-on="on">ici</v-btn>
-        </template>
-        <!--
-        <template v-slot:search="{ on: { fetchData } }">
-          <v-spacer></v-spacer>
-          <v-btn color="info" @click.native="fetchData">Rechercher</v-btn>
-        </template>
-        -->
-
-        <template v-slot:employee_details="{ props: item }">
-          <employe
-            v-if="checkRights(item.idemploye, item.orgunits.OrgUnit[0].IdOU)"
-            v-model="item.idemploye"
-            :get_data_url="get_data_url"
-          ></employe>
-          <div v-else>
-            <span>{{item.prenom}}&nbsp;{{item.nom}}</span><br>
-            <span>Téléphone prof.: {{item.telprof}}</span><br>
-            <span>Email: {{item.email}}</span><br>
-          </div>
-        </template>
-
-        <template v-slot:actions="{ on: { ok, cancel }, props: selected }">
-          <v-container>
-            <v-row justify="end" no-gutters>
+      <!--
+      <v-dialog v-model="dialog" max-width="60%" :fullscreen="false" :scrollable="false" class="employe-search">
+      -->
+      <v-container>
+        <v-row justify="center">
+          <employe-search
+            id="employe-search"
+            :show-emp-details="true"
+            :fullscreen="false"
+            :multi="false"
+            sort-by-field='nom'
+            :multiple-sort="false"
+            :select="false"
+          >
+            <template v-slot:activator="{ on }">
+              <v-btn color="success" v-on="on">ici</v-btn>
+            </template>
+            <!--
+            <template v-slot:search="{ on: { fetchData } }">
               <v-spacer></v-spacer>
-              <v-col cols="2">
-                <v-btn color="info" @click.native="cancel">Annuler</v-btn>
-              </v-col>
-              <v-col cols="1">
-                <v-btn color="info" @click.native="ok">OK</v-btn>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-card>
-                  <div>{{selected}}</div>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-container>
-        </template>
-      </employe-search>
+              <v-btn color="info" @click.native="fetchData">Rechercher</v-btn>
+            </template>
+            -->
+
+            <template v-slot:employee_details="{ props: item }">
+              <employe
+                v-if="checkRights(item.idemploye, item.orgunits.OrgUnit[0].IdOU)"
+                v-model="item.idemploye"
+                :get_data_url="get_data_url"
+              ></employe>
+              <div v-else>
+                <span>{{item.prenom}}&nbsp;{{item.nom}}</span><br>
+                <span>Téléphone prof.: {{item.telprof}}</span><br>
+                <span>Email: {{item.email}}</span><br>
+              </div>
+            </template>
+
+            <template v-slot:actions="{ on: { ok, cancel }, props: selected }">
+              <v-container>
+                <v-row justify="end" no-gutters>
+                  <v-spacer></v-spacer>
+                  <v-col cols="2">
+                    <v-btn color="info" @click.native="cancel">Annuler</v-btn>
+                  </v-col>
+                  <v-col cols="1">
+                    <v-btn color="info" @click.native="ok">OK</v-btn>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <v-card>
+                      <div>{{selected}}</div>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </template>
+          </employe-search>
+        </v-row>
+      </v-container>
+      <!--
+      </v-dialog>
+      -->
     </v-content>
   </v-app>
 </template>
@@ -88,6 +99,7 @@ export default {
     Employe
   },
   data: () => ({
+    dialog: true,
     get_data_url: {orgunit_url: 'http://mygolux.lausanne.ch/goeland/uniteorg/ajax', employee_url: 'http://mygolux.lausanne.ch/goeland/employe/ajax'},
     isEditable: false
     //
@@ -103,3 +115,10 @@ export default {
   }
 }
 </script>
+
+<style lang="css">
+#employe-search {
+  background-color: transparent;
+  width: 60%;
+}
+</style>
