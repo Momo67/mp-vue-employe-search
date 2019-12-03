@@ -1,7 +1,7 @@
 {
   "en": {
     "userInterface": {
-      "searchEmp": "Selection of an employee | Selection of employees",
+      "searchEmp": "Selection of an employee | Selection of employees | Search of employees",
       "noResult": "Sorry, there are no employees matching your search!",
       "alertMsg": "You must enter at least one criterion!",
       "searchBtn": "Search",

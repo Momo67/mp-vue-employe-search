@@ -1,7 +1,7 @@
 {
   "fr": {
     "userInterface": {
-      "searchEmp": "Sélection d'un employé | Sélection d'employés",
+      "searchEmp": "Sélection d'un employé | Sélection d'employés | Recherche d'employés",
       "noResult": "Désolé, il n'y a aucun employé correspondant à votre recherche!",
       "alertMsg": "Vous devez entrer au moins un critère!",
       "searchBtn": "Rechercher",
