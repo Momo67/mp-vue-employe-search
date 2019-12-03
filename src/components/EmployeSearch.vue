@@ -260,7 +260,7 @@ export default {
     value: {
       type: Boolean,
       default: true,
-      required: true
+      required: false
     },
     maxWidth: {
       type: [String, Number],

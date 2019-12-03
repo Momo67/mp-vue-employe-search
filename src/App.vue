@@ -17,14 +17,16 @@
 
     <v-content>
       <HelloWorld/>
+      {{dialog}}<br/>
+      <v-btn color="info" @click="dialog = !dialog">Rechercher</v-btn>
       <!--
       -->
       <v-dialog v-model="dialog" max-width="60%" :fullscreen="false" :scrollable="false" class="employe-search">
       <v-container>
         <v-row justify="center">
           <employe-search
-            v-model="dialog"
             id="employe-search"
+            v-model="dialog"
             :show-emp-details="true"
             :fullscreen="false"
             :multi="false"
@@ -102,7 +104,7 @@ export default {
     Employe
   },
   data: () => ({
-    dialog: true,
+    dialog: false,
     get_data_url: {orgunit_url: 'http://mygolux.lausanne.ch/goeland/uniteorg/ajax', employee_url: 'http://mygolux.lausanne.ch/goeland/employe/ajax'},
     isEditable: false
     //
