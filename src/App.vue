@@ -18,28 +18,29 @@
     <v-content>
       <HelloWorld/>
       <!--
-      <v-dialog v-model="dialog" max-width="60%" :fullscreen="false" :scrollable="false" class="employe-search">
       -->
+      <v-dialog v-model="dialog" max-width="60%" :fullscreen="false" :scrollable="false" class="employe-search">
       <v-container>
         <v-row justify="center">
           <employe-search
+            v-model="dialog"
             id="employe-search"
             :show-emp-details="true"
             :fullscreen="false"
             :multi="false"
             sort-by-field='nom'
             :multiple-sort="false"
-            :select="false"
+            :select="true"
+            @selection_ready="selection_ready"
           >
             <template v-slot:activator="{ on }">
               <v-btn color="success" v-on="on">ici</v-btn>
             </template>
-            <!--
+
             <template v-slot:search="{ on: { fetchData } }">
               <v-spacer></v-spacer>
               <v-btn color="info" @click.native="fetchData">Rechercher</v-btn>
             </template>
-            -->
 
             <template v-slot:employee_details="{ props: item }">
               <employe
@@ -54,7 +55,7 @@
               </div>
             </template>
 
-            <template v-slot:actions="{ on: { ok, cancel }, props: selected }">
+            <template v-slot:actions="{ on: { ok, cancel }, props: { selected } }">
               <v-container>
                 <v-row justify="end" no-gutters>
                   <v-spacer></v-spacer>
@@ -65,6 +66,7 @@
                     <v-btn color="info" @click.native="ok">OK</v-btn>
                   </v-col>
                 </v-row>
+                <!--
                 <v-row>
                   <v-col>
                     <v-card>
@@ -72,13 +74,14 @@
                     </v-card>
                   </v-col>
                 </v-row>
+                -->
               </v-container>
             </template>
           </employe-search>
         </v-row>
       </v-container>
-      <!--
       </v-dialog>
+      <!--
       -->
     </v-content>
   </v-app>
@@ -111,6 +114,9 @@ export default {
       })
       
       return this.isEditable
+    },
+    selection_ready (employees, length) {
+      alert(`selection_ready:\nemployees: ${employees}\nlength: ${length}`)
     }
   }
 }
@@ -118,7 +124,7 @@ export default {
 
 <style lang="css">
 #employe-search {
-  background-color: transparent;
-  width: 60%;
+  background-color: white;
+  width: 100%;
 }
 </style>

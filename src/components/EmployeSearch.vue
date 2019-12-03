@@ -220,7 +220,7 @@
                     </v-flex>
                   </v-layout>
                 </v-card-text>
-                <v-card-actions>
+                <v-card-actions v-if="select">
                   <slot name="actions" v-bind:on="{ ok, cancel}" v-bind:props="{ selected }">
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" text @click.native="cancel">{{$t('userInterface.cancel')}}</v-btn>
@@ -257,6 +257,11 @@ const log = (DEV) ? new Log(MODULE_NAME, 4) : new Log(MODULE_NAME, 2)
 export default {
   name: 'EmployeSearch',
   props: {
+    value: {
+      type: Boolean,
+      default: true,
+      required: true
+    },
     maxWidth: {
       type: [String, Number],
       default: '950px',
@@ -406,6 +411,7 @@ export default {
     },
     cancel () {
       this.dialog = false
+      this.$emit('input', false)
     },
     clear () {
       this.$refs.form.reset()
@@ -417,6 +423,7 @@ export default {
       this.$emit('selection_ready', this.json ? JSON.stringify(this.selected) : this.selected, this.selected.length)
       this.selected = []
       this.dialog = false
+      this.$emit('input', false)
     },
     fetchData () {
       this.alert = false
