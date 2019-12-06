@@ -18,6 +18,11 @@ export const ORGUNIT_INIT = {
 
 export const HEADERS = [
   {
+    text: '',
+    value: 'select',
+    width: 1
+  },
+  {
     text: 'Nom',
     value: 'nom',
     align: 'left',
@@ -36,7 +41,7 @@ export const HEADERS = [
     value: 'orgunits',
     align: 'left',
     sortable: true,
-    width: 200
+    width: '200px'
   }, 
   {
     text: 'Id',

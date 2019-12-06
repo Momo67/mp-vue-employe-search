@@ -32,12 +32,14 @@
             :multi="false"
             sort-by-field='nom'
             :multiple-sort="false"
-            :select="true"
+            :select="false"
             @selection_ready="selection_ready"
           >
+          <!--
             <template v-slot:activator="{ on }">
               <v-btn color="success" v-on="on">ici</v-btn>
             </template>
+            -->
 
             <template v-slot:search="{ on: { fetchData } }">
               <v-spacer></v-spacer>
@@ -46,11 +48,12 @@
 
             <template v-slot:employee_details="{ props: item }">
               <employe
+                id="employe"
                 v-if="checkRights(item.idemploye, item.orgunits.OrgUnit[0].IdOU)"
                 v-model="item.idemploye"
                 :get_data_url="get_data_url"
               ></employe>
-              <div v-else>
+              <div v-else :class="((item.isactive == '1') ? 'actif' : 'inactif') + ' expanded'">
                 <span>{{item.prenom}}&nbsp;{{item.nom}}</span><br>
                 <span>Téléphone prof.: {{item.telprof}}</span><br>
                 <span>Email: {{item.email}}</span><br>
@@ -128,5 +131,16 @@ export default {
 #employe-search {
   background-color: white;
   width: 100%;
+}
+/*
+.actif {
+  color: black;
+}
+.inactif {
+  color: red;
+}
+*/
+#employe {
+  /*background: lightgray;*/
 }
 </style>
