@@ -442,8 +442,7 @@ export default {
       if (/^LAUSANNE_CH/.test(mainntlogin)) {
         return mainntlogin.substring(12)
       } else {
-        //return mainntlogin
-        return '666'
+        return mainntlogin
       }
     },
     getOUPath (orgunits)
