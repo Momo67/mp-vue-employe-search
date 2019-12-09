@@ -187,7 +187,7 @@
                         <template v-else-if="header.value == 'orgunits'">{{getOUFinal(item[header.value])}}</template>
                         <template v-else-if="header.value == 'mainntlogin'">{{extractLoginNT(item[header.value])}}</template>
                         <template v-else-if="header.value == 'data-table-expand'">
-                          <v-icon @click="expand(!isExpanded)">{{ isExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+                          <v-icon v-show="showEmpDetails" @click="expand(!isExpanded)">{{ isExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
                         </template>
                         <template v-else>{{item[header.value]}}</template>
                       </td>
@@ -394,7 +394,7 @@ export default {
   computed: {
     computedSortByField: {
       get: function () {
-        return (this.sortByField === '') || (this.sortByField === []) ? [this.tableHeaders[0].value, this.tableHeaders[1].value] : this.sortByField
+        return (this.sortByField === '') || (this.sortByField === []) ? [this.tableHeaders[1].value, this.tableHeaders[2].value] : this.sortByField
       },
       set: function () {
 

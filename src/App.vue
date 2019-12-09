@@ -27,12 +27,11 @@
           <employe-search
             id="employe-search"
             v-model="dialog"
-            :show-emp-details="true"
             :fullscreen="false"
+            :select="true"
             :multi="false"
-            sort-by-field='nom'
-            :multiple-sort="false"
-            :select="false"
+            :json="true"
+            :get_data_url="get_data_url"
             @selection_ready="selection_ready"
           >
           <!--
