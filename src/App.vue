@@ -21,7 +21,7 @@
       <v-btn color="info" @click="dialog = !dialog">Rechercher</v-btn>
       <!--
       -->
-      <v-dialog v-model="dialog" max-width="60%" :fullscreen="false" :scrollable="false" class="employe-search">
+      <v-dialog v-model="dialog" max-width="50%" :fullscreen="false" :scrollable="false" class="employe-search">
       <v-container>
         <v-row justify="center">
           <employe-search
