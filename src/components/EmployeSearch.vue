@@ -5,7 +5,7 @@
       <v-flex xs12>
         <v-card>
           <v-card-title>
-            <span class="headline">{{select ? (multi ? $tc('userInterface.searchEmp' , 2) : $tc('userInterface.searchEmp', 1)) : $tc('userInterface.searchEmp', 3)}}</span>
+            <span class="headline">{{select ? (multi ? $tc('userInterface.searchEmp' , 1) : $tc('userInterface.searchEmp', 0)) : $tc('userInterface.searchEmp', 2)}}</span>
           </v-card-title>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -166,7 +166,13 @@
                   <template v-slot:header="{ props: { headers } }">
                     <thead>
                       <tr>
-                        <th v-for="header in headers" v-bind:key="header.value" :width="header.width">{{header.text}}</th>
+                      <td>&nbsp;</td>
+                      <td><v-simple-checkbox></v-simple-checkbox></td>
+                        <td v-for="header in headers" :key="`${header.value}`">
+                          <template v-if="header.value != 'data-table-select' && header.value != 'data-table-expand'"> 
+                            {{header.text}},{{header.value}}
+                          </template>
+                        </td>
                       </tr>
                     </thead>
                   </template>
@@ -180,19 +186,28 @@
 
                   <template v-slot:item="{ item, headers, isSelected, select, isExpanded, expand }">
                     <tr :class="((item.isactive == '1') ? 'actif' : 'inactif') + ' employee_row'">
-                      <td v-for="header in headers" :key="`${header.value}-${item.idemploye}`" :width="header.width">
-                        <template v-if="header.value== 'select'">
-                          <v-simple-checkbox :value="isSelected" @input="select($event)" v-show="$props.select"></v-simple-checkbox>
-                        </template>
-                        <template v-else-if="header.value == 'orgunits'">{{getOUFinal(item[header.value])}}</template>
-                        <template v-else-if="header.value == 'mainntlogin'">{{extractLoginNT(item[header.value])}}</template>
-                        <template v-else-if="header.value == 'data-table-expand'">
-                          <v-icon v-show="showEmpDetails" @click="expand(!isExpanded)">{{ isExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
-                        </template>
-                        <template v-else>{{item[header.value]}}</template>
+                      <td :key="`check-${item.idemploye}`" v-if="$props.select">
+                        <v-simple-checkbox :value="isSelected" @input="select($event)"></v-simple-checkbox>
+                      </td>
+                      <template v-for="header in headers">
+                        <td v-if="(header.value != 'data-table-select') && (header.value != 'data-table-expand')" :key="`${header.value}-${item.idemploye}`">
+                          {{ displayCell(header.value, item) }}
+                        </td>
+                      </template>
+
+                      <!--
+                      <td>{{item.nom}}</td>
+                      <td>{{item.prenom}}</td>
+                      <td>{{getOUFinal(item.orgunits)}}</td>
+                      <td>{{item.idemploye}}</td>
+                      <td>{{extractLoginNT(item.mainntlogin)}}</td>
+                      -->
+
+                      <td>
+                        <v-icon v-show="showEmpDetails" @click="expand(!isExpanded)">{{ isExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>                        
                       </td>
                     </tr>
-                  </template>        
+                  </template>
 
                   <!--
                   <template v-slot:item.orgunits="{ item }">
@@ -206,18 +221,18 @@
 
                   <template v-slot:expanded-item="{item, headers}">
                     <td class="expanded" :colspan="headers.length">
-                    <v-card flat>
-                      <v-card-text>
-                        <slot name="employee_details" v-bind:props="item">
-                          <div class="employee_details">
-                            <span>{{item.prenom}}&nbsp;{{item.nom}}</span><br>
-                            <span>Téléphone prof.: {{item.telprof}}</span><br>
-                            <span>Email: {{item.email}}</span><br>
-                            <span>Unité organisationnelle: {{getOUPath(item.orgunits.OrgUnit)}}</span>
-                          </div>
-                        </slot>
-                      </v-card-text>
-                    </v-card>
+                      <v-card flat>
+                        <v-card-text>
+                          <slot name="employee_details" v-bind:props="item">
+                            <div class="employee_details">
+                              <span>{{item.prenom}}&nbsp;{{item.nom}}</span><br>
+                              <span>Téléphone prof.: {{item.telprof}}</span><br>
+                              <span>Email: {{item.email}}</span><br>
+                              <span>Unité organisationnelle: {{getOUPath(item.orgunits.OrgUnit)}}</span>
+                            </div>
+                          </slot>
+                        </v-card-text>
+                      </v-card>
                     </td>
                   </template>
 
@@ -394,7 +409,7 @@ export default {
   computed: {
     computedSortByField: {
       get: function () {
-        return (this.sortByField === '') || (this.sortByField === []) ? [this.tableHeaders[1].value, this.tableHeaders[2].value] : this.sortByField
+        return (this.sortByField === '') || (this.sortByField === []) ? [this.tableHeaders[0].value, this.tableHeaders[1].value] : this.sortByField
       },
       set: function () {
 
@@ -490,6 +505,22 @@ export default {
         }
       })
       return __isequal
+    },
+    displayCell (fieldname, row) {
+      let __retval = ''
+      switch (fieldname) {
+        case 'orgunits':
+          __retval = this.getOUFinal(row[fieldname])
+          break
+
+        case 'mainntlogin':
+          __retval = this.extractLoginNT(row[fieldname])
+          break
+
+        default:
+          __retval = row[fieldname]
+      }
+      return __retval
     }
   },
   created () {

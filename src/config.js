@@ -17,11 +17,13 @@ export const ORGUNIT_INIT = {
 }
 
 export const HEADERS = [
+  /*
   {
     text: '',
     value: 'select',
     width: 1
   },
+  */
   {
     text: 'Nom',
     value: 'nom',

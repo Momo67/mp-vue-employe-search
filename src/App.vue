@@ -29,7 +29,7 @@
             v-model="dialog"
             :fullscreen="false"
             :select="true"
-            :multi="false"
+            :multi="true"
             :json="true"
             :get_data_url="get_data_url"
             @selection_ready="selection_ready"
@@ -48,10 +48,21 @@
             <template v-slot:employee_details="{ props: item }">
               <employe
                 id="employe"
-                v-if="checkRights(item.idemploye, item.orgunits.OrgUnit[0].IdOU)"
+                v-if="checkRights(item.idemploye, item.orgunits)"
                 v-model="item.idemploye"
                 :get_data_url="get_data_url"
-              ></employe>
+              >
+                <template v-slot:actions="{ on: { save } }">
+                  <v-container>
+                    <v-row justify="end">
+                      <v-col cols="2">
+                        <v-btn color="info" @click="save">Sauver</v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </template>
+              </employe>
+              <!-- <div v-if="true">{{item}}</div> -->
               <div v-else :class="((item.isactive == '1') ? 'actif' : 'inactif') + ' expanded'">
                 <span>{{item.prenom}}&nbsp;{{item.nom}}</span><br>
                 <span>Téléphone prof.: {{item.telprof}}</span><br>
@@ -97,6 +108,7 @@ import EmployeSearch from './components/EmployeSearch'
 import Employe from 'mp-vue-employe'
 
 import { employe } from 'mp-vue-employe/src/components/employe'
+import jsonpath from 'jsonpath'
 
 export default {
   name: 'App',
@@ -112,8 +124,8 @@ export default {
     //
   }),
   methods: {
-    checkRights (idemploye, idou) {
-      employe.checkRights({idempeditor: 10958, idemployetoedit: idemploye, idou: idou}, this.get_data_url.employee_url, (data) => {
+    checkRights (idemploye, orgunits) {
+      employe.checkRights({idempeditor: 10958, idemployetoedit: idemploye, idou: jsonpath.value(orgunits, '$..OrgUnit[?(@.LevelOU==0)].IdOU')}, this.get_data_url.employee_url, (data) => {
         this.isEditable = (parseInt(data.RetCode) != 0)
       })
       
@@ -139,7 +151,8 @@ export default {
   color: red;
 }
 */
-#employe {
+.expanded {
   /*background: lightgray;*/
+  width: 1500px;
 }
 </style>
