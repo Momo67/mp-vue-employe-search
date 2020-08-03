@@ -43,7 +43,7 @@ export const HEADERS = [
     value: 'orgunits',
     align: 'left',
     sortable: true,
-    width: '200px'
+    width: 20
   }, 
   {
     text: 'Id',
