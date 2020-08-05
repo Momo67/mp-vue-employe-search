@@ -38,19 +38,23 @@ class Employe {
 
     let __fetch_url = `${get_data_url}/employe_get_liste.php`
     axios.post(__fetch_url, {params: employe}).then(response => {
-      let __data = response.data.Employe.filter(employe => (employe.IsActive === '1') || display_nonactive)
-
-      __data.forEach(function(employee) {
-        for (var prop in employee) {
-          employee[prop.toLowerCase()] = employee[prop]
-          if (typeof employee['prenom'] === 'object')
-            employee['prenom'] = ''
-          delete employee[prop]
-        }
-      })
-      callback(__data)
-
-      log.l('## in Employe::getList employees: ', __data)
+      if (response.data.Employe !== undefined) {
+        let __data = response.data.Employe.filter(employe => (employe.IsActive === '1') || display_nonactive)
+  
+        __data.forEach(function(employee) {
+          for (var prop in employee) {
+            employee[prop.toLowerCase()] = employee[prop]
+            if (typeof employee.prenom === 'object')
+              employee.prenom = ''
+            delete employee[prop]
+          }
+        })
+        callback(__data)
+  
+        log.l('## in Employe::getList employees: ', __data)
+      } else {
+        callback(undefined)
+      }
     }).catch(error => {
       if (error.response) {
         log.e(`## in Employe::getList Error data: ${error.response.data}, status: ${error.response.status}, headers: ${error.response.headers}`)

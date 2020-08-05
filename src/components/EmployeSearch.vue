@@ -111,6 +111,7 @@
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
                     <v-text-field
+                      ref="search_field"
                       v-on="on"
                       v-model="search"
                       append-icon="search"
@@ -448,9 +449,16 @@ export default {
         this.show_form = true
       } else {
         EMPLOYE.getList (this.employee, this.get_data_url.employee_url, this.display_nonactive, (data) => {
-          this.employees = data
-          this.show_form = false
-          this.show_list = true
+          if (data !== undefined) {
+            this.employees = data
+            this.show_form = false
+            this.show_list = true
+          } else {
+            this.employees = []
+            this.show_form = true
+            this.show_list = true
+            this.$nextTick(() => this.$refs.search_field.focus())
+          }
         })
       }
     },
