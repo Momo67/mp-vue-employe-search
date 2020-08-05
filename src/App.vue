@@ -70,7 +70,7 @@
               </div>
             </template>
 
-            <template v-slot:actions="{ on: { ok, cancel }, props: { selected } }">
+            <template v-slot:actions="{ on: { ok, cancel } }">
               <v-container>
                 <v-row justify="end" no-gutters>
                   <v-spacer></v-spacer>
