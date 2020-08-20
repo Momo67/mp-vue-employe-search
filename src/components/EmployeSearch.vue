@@ -187,7 +187,7 @@
                   -->
 
                   <template v-slot:item="{ item, headers, isSelected, select, isExpanded, expand }">
-                    <tr :class="((item.isactive == '1') ? 'actif' : 'inactif') + ' employee_row'" @click="$emit('employee_click', item)">
+                    <tr :class="((item.isactive == '1') ? 'actif' : 'inactif') + ' employee_row'" @click="$emit('employee-click', item)">
                       <td :key="`check-${item.idemploye}`" v-if="$props.select" style="width:5%;">
                         <v-simple-checkbox :value="isSelected" @input="select($event)"></v-simple-checkbox>
                       </td>
