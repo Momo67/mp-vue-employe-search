@@ -436,6 +436,7 @@ export default {
       this.employee = Object.assign({}, EMPLOYEE_INIT)
       this.employees = []
       this.show_list = false
+      this.$emit('clear-press')
     },
     ok () {
       this.$emit('selection-ready', this.json ? JSON.stringify(this.selected) : this.selected, this.selected.length)
@@ -453,6 +454,7 @@ export default {
             this.employees = data
             this.show_form = false
             this.show_list = true
+            this.$emit('list-ready', this.employees)
           } else {
             this.employees = []
             this.show_form = true

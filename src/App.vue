@@ -34,6 +34,8 @@
             :get_data_url="get_data_url"
             @selection-ready="selection_ready"
             @employee-click="employee_click"
+            @clear-press="onClearPress"
+            @list-ready="onListReady"
           >
           <!--
             <template v-slot:activator="{ on }">
@@ -137,6 +139,12 @@ export default {
     },
     employee_click (employee) {
       console.log('### employee_click: ', employee)
+    },
+    onClearPress () {
+      console.log('### onClearPress')
+    },
+    onListReady (employees) {
+      console.log('### onListReady: ', employees)
     }
   }
 }
