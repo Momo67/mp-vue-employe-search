@@ -32,7 +32,8 @@
             :multi="true"
             :json="true"
             :get_data_url="get_data_url"
-            @selection_ready="selection_ready"
+            @selection-ready="selection_ready"
+            @employee-click="employee_click"
           >
           <!--
             <template v-slot:activator="{ on }">
@@ -133,6 +134,9 @@ export default {
     },
     selection_ready (employees, length) {
       alert(`selection_ready:\nemployees: ${employees}\nlength: ${length}`)
+    },
+    employee_click (employee) {
+      console.log('### employee_click: ', employee)
     }
   }
 }

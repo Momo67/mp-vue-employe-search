@@ -438,7 +438,7 @@ export default {
       this.show_list = false
     },
     ok () {
-      this.$emit('selection_ready', this.json ? JSON.stringify(this.selected) : this.selected, this.selected.length)
+      this.$emit('selection-ready', this.json ? JSON.stringify(this.selected) : this.selected, this.selected.length)
       this.selected = []
       this.$emit('input', false)
     },
