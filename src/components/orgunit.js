@@ -26,8 +26,8 @@ class OrgUnit {
     axios.post(__fetch_url, {params: orgunit}).then(response => {
       let __data = response.data.OrgUnit
       __data.sort(function (a, b) {
-        let __nameA = a.Description.toUpperCase()
-        let __nameB = b.Description.toUpperCase()
+        let __nameA = a.DescTreeDenorm.toUpperCase()
+        let __nameB = b.DescTreeDenorm.toUpperCase()
         if (__nameA < __nameB) {
           return -1;
         }

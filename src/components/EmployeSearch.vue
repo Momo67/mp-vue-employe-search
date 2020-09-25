@@ -45,7 +45,7 @@
                       color="primary"
                       hide-no-data
                       clearable
-                      item-text="Description"
+                      item-text="DescTreeDenorm"
                       item-value="IdOrgUnit"
                       :label="$t('userInterface.orgUnit')"
                       :placeholder="$t('userInterface.searchHint')"
