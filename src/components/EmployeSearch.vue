@@ -156,6 +156,7 @@
                     itemsPerPageAllText: $t('dataIterator.rowsPerPageAll'),
                     pageText: $t('dataIterator.pageText')
                   }"
+                  :page.sync="list_page"
                 >
 
                   <!--
@@ -358,6 +359,7 @@ export default {
       show: true,
       show_form: true,
       show_list: false,
+      list_page: 1,
       alert: false,
       alert_msg: '',
       display_nonactive: true,
@@ -444,6 +446,7 @@ export default {
       this.$emit('input', false)
     },
     fetchData () {
+      this.employees = []
       this.alert = false
       if (this.isEqual(this.employee, EMPLOYEE_INIT)) {
         this.alert = true
@@ -452,11 +455,11 @@ export default {
         EMPLOYE.getList (this.employee, this.get_data_url.employee_url, this.display_nonactive, (data) => {
           if (data !== undefined) {
             this.employees = data
+            this.list_page = 1
             this.show_form = false
             this.show_list = true
             this.$emit('list-ready', this.employees)
           } else {
-            this.employees = []
             this.show_form = true
             this.show_list = true
             this.$nextTick(() => this.$refs.search_field.focus())
