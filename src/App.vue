@@ -15,7 +15,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <HelloWorld/>
       {{dialog}}<br/>
       <v-btn color="info" @click="dialog = !dialog">Rechercher</v-btn>
@@ -99,9 +99,7 @@
         </v-row>
       </v-container>
       </v-dialog>
-      <!--
-      -->
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
