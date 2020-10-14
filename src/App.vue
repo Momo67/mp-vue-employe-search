@@ -65,7 +65,6 @@
                   </v-container>
                 </template>
               </employe>
-              <!-- <div v-if="true">{{item}}</div> -->
               <div v-else :class="((item.isactive == '1') ? 'actif' : 'inactif') + ' expanded'">
                 <span>{{item.prenom}}&nbsp;{{item.nom}}</span><br>
                 <span>Téléphone prof.: {{item.telprof}}</span><br>
