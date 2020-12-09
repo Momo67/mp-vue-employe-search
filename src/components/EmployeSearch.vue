@@ -368,7 +368,8 @@ export default {
       rules: {
         required: value => !!value || 'Required.',
         nomprenom: value => {
-          const pattern = /^[a-zA-Z\s-]*\*?$/
+          //const pattern = /^\*?[a-zA-Z\s-']*\*?$/
+          const pattern = /^\*?[a-zA-Zéèêëôöäàâüûîïç'\s()-]*\*?$/
           return pattern.test(value) || 'Valeur invalide'
         },
         id: value => {
