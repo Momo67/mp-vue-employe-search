@@ -16,9 +16,7 @@ if(!(objGlobal.escape && objGlobal.unescape)) {
         }
         else {
           var code = input.charCodeAt(0);
-          ret = code < 256
-            ? "%" + (0 + code.toString(16)).slice(-2).toUpperCase()
-            : "%u" + ("000" + code.toString(16)).slice(-4).toUpperCase();
+          ret = code < 256 ? "%" + (0 + code.toString(16)).slice(-2).toUpperCase() : "%u" + ("000" + code.toString(16)).slice(-4).toUpperCase();
         }
         escapeHash[ret] = input;
         escapeHash[input] = ret;
@@ -68,11 +66,17 @@ class Employe {
     } else if (employe.prenom.slice(-1) != '*') {
       employe.prenom += '*'
     }
-    employe.nom = escape(employe.nom)
-    employe.prenom = escape(employe.prenom)
 
     let __fetch_url = `${get_data_url}/employe_get_liste.php`
-    axios.post(__fetch_url, {params: employe}).then(response => {
+    axios.post(__fetch_url, {
+      params: {
+        idou: employe.idou,
+        prenom: escape(employe.prenom),
+        nom: escape(employe.nom),
+        id: employe.id,
+        loginnt: employe.loginnt
+      }
+    }).then(response => {
       if (response.data.Employe !== undefined) {
         let __data = response.data.Employe.filter(employe => (employe.IsActive === '1') || display_nonactive)
   
