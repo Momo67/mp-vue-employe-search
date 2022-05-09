@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-xs>
+  <v-container grid-list-xs @keyup.enter="fetchData">
     <v-layout row>
 
       <v-flex xs12>
@@ -29,6 +29,7 @@
               <template v-slot:activator="{ on }">
                 <v-btn icon v-on="on" @click="clear">
                   <v-icon>clear</v-icon>
+
                 </v-btn>
               </template>
               <span>{{$t('userInterface.resetBtn')}}</span>
