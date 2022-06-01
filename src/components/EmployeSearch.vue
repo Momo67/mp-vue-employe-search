@@ -77,7 +77,7 @@
                       </v-sheet>
                       <v-card-text class="tree-ou-text">
                         <v-treeview ref="tree"
-                                    @update:active ="getSelectedOU"
+                                    @update:active="getSelectedOU"
                                     return-object   
                                     dense
                                     activatable
@@ -572,6 +572,7 @@ export default {
       })
     },
     getSelectedOU (value) {
+      console.log('value:', value)      
       this.employee.idou = (value[0].id != 1) ? value[0].id : 0
       this.orgunit.OUName = (value[0].id != 1) ? value[0].description : 'Administration communale de la ville de Lausanne'
       this.show_ou = false
@@ -595,8 +596,8 @@ export default {
     },
     showOU () {
       this.show_ou = true
-      this.init_opened_ou = [482]
-      this.$refs.tree.updateAll(true)
+      this.init_opened_ou = [{ "id": 1, "name": "Ville de Lausanne", "description": "Ville de Lausanne", "desctreedenorm": "Ville de Lausanne"}]
+      //this.$refs.tree.updateAll(false)
     },
     isEqual (obj1, obj2) {
       let __isequal = true
@@ -629,6 +630,7 @@ export default {
   },
   mounted () {
     this.descending = this.sortDesc
+
   }
 }
 </script>
