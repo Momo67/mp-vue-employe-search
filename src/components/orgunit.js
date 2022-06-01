@@ -52,6 +52,26 @@ class OrgUnit {
       log.e(`## in OrgUnit::getList Error: `, error.config)
     })
   }
+
+  getTree (get_data_url, callback) {
+    let __fetch_url = `${get_data_url}/uniteorg_get_tree.php`
+    axios.post(__fetch_url, {params: orgunit}).then(response => {
+      let __data = response.data
+
+      callback(__data)
+
+      log.l('## in OrgUnit::getTree orgunits: ', __data)
+    }).catch(error => {
+      if (error.response) {
+        log.e(`## in OrgUnit::getTree Error data: ${error.response.data}, status: ${error.response.status}, headers: ${error.response.headers}`)
+      } else if (error.request) {
+        log.e(`## in OrgUnit::getTree Error request: `, error.request)
+      } else {
+        log.e(`## in OrgUnit::getTree Error: `, error.message)
+      }
+      log.e(`## in OrgUnit::getTree Error: `, error.config)
+    })
+  }
 }
 
 export const orgunit = new OrgUnit()

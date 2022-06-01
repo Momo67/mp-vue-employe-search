@@ -39,7 +39,15 @@
             <v-container grid-list-md class="pt-0 pb-0">
               <v-form ref="form">
                 <v-layout wrap>
+
+                  <v-flex xs12 sm12 md12>
+                    <v-text-field v-model="orgunit.OUName" :label="$t('userInterface.orgUnit')" readonly clearable @click="showOU" @click:clear="clearTreeOU"></v-text-field>
+                  </v-flex>
+
+
                   <v-flex xs12>
+
+                    <!--
                     <v-autocomplete
                       v-model="employee.idou"
                       :items="orgunits"
@@ -51,6 +59,43 @@
                       :label="$t('userInterface.orgUnit')"
                       :placeholder="$t('userInterface.searchHint')"
                     ></v-autocomplete>
+                    -->
+                    <v-card v-show="show_ou"
+                      class="mx-auto tree-ou"
+                      max-width="500"
+                    >
+                      <v-sheet class="pa-4 primary lighten-2">
+                        <v-text-field
+                                      v-model="ou_search"
+                                      :label="$t('userInterface.searchOU')"
+                                      dark
+                                      flat
+                                      hide-details
+                                      clearable
+                                      @input="searchOU"
+                                      ></v-text-field>
+                      </v-sheet>
+                      <v-card-text class="tree-ou-text">
+                        <v-treeview ref="tree"
+                                    @update:active ="getSelectedOU"
+                                    return-object   
+                                    dense
+                                    activatable
+                                    active-class="grey lighten-4 indigo--text"
+                                    hoverable
+                                    :items="orgunits"
+                                    :active="activeOU"
+                                    :search="ou_search"
+                                    :open.sync="init_opened_ou"
+                                    >
+                        </v-treeview>
+                      </v-card-text>
+                    </v-card>
+
+
+
+
+                    
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field v-model="employee.nom" :label="$t('userInterface.lastName')" clearable :rules="[rules.nomprenom]" autocomplete="something-new"></v-text-field>
@@ -387,7 +432,14 @@ export default {
       employees: [],
       selected: [],
       orgunit: undefined,
-      orgunits: []
+      orgunits: [],
+      activeOU: [],
+      ou_search: '',
+      openedOU: [],
+      lastOpenedOU: [],
+      allOpenedOU: false,
+      show_ou: false,
+      init_opened_ou: []
     }
   },
   watch: {
@@ -430,7 +482,8 @@ export default {
       this.get_data_url.employee_url = (this.get_data_url.employee_url === '') ? EMP_URL_AJAX : this.get_data_url.employee_url
       this.tableHeaders = (Array.isArray(this.headers) && this.headers.length !== 0) ? this.headers : HEADERS
       this.display_nonactive = this.showNonActive
-      this.getOUList()
+      //this.getOUList()
+      this.getOUTree()
     },
     cancel () {
       this.$emit('input', false)
@@ -513,6 +566,38 @@ export default {
         this.orgunits = data
       })
     },
+    getOUTree() {
+      ORGUNIT.getTree (this.get_data_url.orgunit_url, (data) => {
+        this.orgunits = data
+      })
+    },
+    getSelectedOU (value) {
+      this.employee.idou = (value[0].id != 1) ? value[0].id : 0
+      this.orgunit.OUName = (value[0].id != 1) ? value[0].description : 'Administration communale de la ville de Lausanne'
+      this.show_ou = false
+    },
+    clearTreeOU () {
+      this.employee.idou = null
+      this.orgunit.OUName = ''
+    },
+    searchOU (val) {
+      if ((val) && (val.length > 2)) {
+        if (!this.allOpenedOU) {
+          this.lastOpenedOU = this.openedOU;
+          this.allOpenedOU = true;
+          this.$refs.tree.updateAll(true);
+        }
+      } else {
+        this.$refs.tree.updateAll(false);
+        this.allOpenedOU = false;
+        this.openedOU = this.lastOpenedOU;
+      }
+    },
+    showOU () {
+      this.show_ou = true
+      this.init_opened_ou = [482]
+      this.$refs.tree.updateAll(true)
+    },
     isEqual (obj1, obj2) {
       let __isequal = true
       Object.keys(obj1).forEach(function (key) {
@@ -581,6 +666,20 @@ td {
 }
 .inactif {
   color: red;
+}
+.tree-ou {
+  position: absolute;
+  padding: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-75%, -75%);
+}
+.tree-ou-text {
+  overflow-y: auto;
+  max-height: 500px;
+}
+.v-content__wrap {
+  position: relative;
 }
 </style>
 

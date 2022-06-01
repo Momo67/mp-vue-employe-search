@@ -12,6 +12,7 @@
       "displayCriterionBtn": "Show / hide selection criterions",
       "resetBtn": "Click to reset",
       "orgUnit": "Organizational unit",
+      "searchOU": "Search Company Directory",
       "searchHint": "Enter a character to start the search",
       "lastName": "Last Name",
       "firstName": "First name",
