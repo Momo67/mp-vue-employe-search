@@ -569,6 +569,7 @@ export default {
     getOUTree() {
       ORGUNIT.getTree (this.get_data_url.orgunit_url, (data) => {
         this.orgunits = data
+        this.init_opened_ou = [{ "id": 1, "name": "Ville de Lausanne", "description": "Ville de Lausanne", "desctreedenorm": "Ville de Lausanne"}]
       })
     },
     getSelectedOU (value) {
@@ -580,24 +581,24 @@ export default {
     clearTreeOU () {
       this.employee.idou = null
       this.orgunit.OUName = ''
+      this.$refs.tree.updateAll(false)
+      this.init_opened_ou = [{ "id": 1, "name": "Ville de Lausanne", "description": "Ville de Lausanne", "desctreedenorm": "Ville de Lausanne"}]
     },
     searchOU (val) {
       if ((val) && (val.length > 2)) {
         if (!this.allOpenedOU) {
-          this.lastOpenedOU = this.openedOU;
-          this.allOpenedOU = true;
-          this.$refs.tree.updateAll(true);
+          this.lastOpenedOU = this.openedOU
+          this.allOpenedOU = true
+          this.$refs.tree.updateAll(true)
         }
       } else {
-        this.$refs.tree.updateAll(false);
-        this.allOpenedOU = false;
-        this.openedOU = this.lastOpenedOU;
+        this.$refs.tree.updateAll(false)
+        this.allOpenedOU = false
+        this.openedOU = this.lastOpenedOU
       }
     },
     showOU () {
       this.show_ou = true
-      this.init_opened_ou = [{ "id": 1, "name": "Ville de Lausanne", "description": "Ville de Lausanne", "desctreedenorm": "Ville de Lausanne"}]
-      //this.$refs.tree.updateAll(false)
     },
     isEqual (obj1, obj2) {
       let __isequal = true
@@ -630,7 +631,6 @@ export default {
   },
   mounted () {
     this.descending = this.sortDesc
-
   }
 }
 </script>
