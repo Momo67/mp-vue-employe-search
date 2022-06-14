@@ -34,7 +34,7 @@
     "mp-vue-employe": "^1.9.5",
     "node-sass": "^7.0.0",
     "release-it": "^12.6.3",
-    "sass": "^1.32.0",
+    "sass": "~1.32.0",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-axios": "0.0.4",
     "vue-cli-plugin-i18n": "^0.6.1",
