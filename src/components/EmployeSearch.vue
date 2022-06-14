@@ -592,9 +592,11 @@ export default {
       })
     },
     getSelectedOU (value) {
-      this.employee.idou = (value[0].id != 1) ? value[0].id : 0
-      this.orgunit.OUName = (value[0].id != 1) ? value[0].description : 'Administration communale de la ville de Lausanne'
-      this.show_ou = false
+      if (value.length != 0) {
+        this.employee.idou = (value[0].id != 1) ? value[0].id : 0
+        this.orgunit.OUName = (value[0].id != 1) ? value[0].description : 'Administration communale de la ville de Lausanne'
+        this.show_ou = false
+      }
     },
     clearTreeOU () {
       this.employee.idou = null
