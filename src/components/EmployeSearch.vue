@@ -39,19 +39,61 @@
             <v-container grid-list-md class="pt-0 pb-0">
               <v-form ref="form">
                 <v-layout wrap>
-                  <v-flex xs12>
-                    <v-autocomplete
-                      v-model="employee.idou"
-                      :items="orgunits"
-                      color="primary"
-                      hide-no-data
-                      clearable
-                      item-text="DescTreeDenorm"
-                      item-value="IdOrgUnit"
-                      :label="$t('userInterface.orgUnit')"
-                      :placeholder="$t('userInterface.searchHint')"
-                    ></v-autocomplete>
-                  </v-flex>
+
+                  <template v-if="ouDisplayType == 'select'">
+                    <v-flex xs12>
+                      <v-autocomplete
+                        v-model="employee.idou"
+                        :items="orgunits"
+                        color="primary"
+                        hide-no-data
+                        clearable
+                        item-text="DescTreeDenorm"
+                        item-value="IdOrgUnit"
+                        :label="$t('userInterface.orgUnit')"
+                        :placeholder="$t('userInterface.searchHint')"
+                      ></v-autocomplete>
+                    </v-flex>
+                  </template>
+
+                  <template v-if="ouDisplayType == 'treeview'">
+                    <v-flex xs12 sm12 md12>
+                      <v-text-field v-model="orgunit.OUName" :label="$t('userInterface.orgUnit')" readonly clearable @click="showOU" @click:clear="clearTreeOU"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-card v-show="show_ou"
+                        class="mx-auto tree-ou"
+                        max-width="500"
+                      >
+                        <v-sheet class="pa-4 primary lighten-2">
+                          <v-text-field
+                                        v-model="ou_search"
+                                        :label="$t('userInterface.searchOU')"
+                                        dark
+                                        flat
+                                        hide-details
+                                        clearable
+                                        @input="searchOU"
+                                        ></v-text-field>
+                        </v-sheet>
+                        <v-card-text class="tree-ou-text">
+                          <v-treeview ref="tree"
+                                      @update:active="getSelectedOU"
+                                      return-object   
+                                      dense
+                                      :active="active_ou"
+                                      activatable
+                                      active-class="grey lighten-4 indigo--text"
+                                      hoverable
+                                      :items="orgunits"
+                                      :search="ou_search"
+                                      :open.sync="init_opened_ou"
+                                      >
+                          </v-treeview>
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                  </template>
                   <v-flex xs12 sm6 md6>
                     <v-text-field v-model="employee.nom" :label="$t('userInterface.lastName')" clearable :rules="[rules.nomprenom]" autocomplete="something-new"></v-text-field>
                   </v-flex>
@@ -117,6 +159,7 @@
                       v-model="search"
                       append-icon="search"
                       :label="$t('userInterface.search')"
+                      clearable
                       single-line
                       hide-details
                     ></v-text-field>
@@ -301,6 +344,14 @@ export default {
       default: true,
       require: false
     },
+    ouDisplayType: {
+      type: String,
+      default: 'treeview',
+      require: false,
+      validator(value) {
+        return ['treeview', 'select'].includes(value)
+      }      
+    },
     showNonActive: {
       type: Boolean,
       default: false,
@@ -387,7 +438,14 @@ export default {
       employees: [],
       selected: [],
       orgunit: undefined,
-      orgunits: []
+      orgunits: [],
+      ou_search: '',
+      openedOU: [],
+      lastOpenedOU: [],
+      allOpenedOU: false,
+      show_ou: false,
+      active_ou: [],
+      init_opened_ou: [],
     }
   },
   watch: {
@@ -430,13 +488,16 @@ export default {
       this.get_data_url.employee_url = (this.get_data_url.employee_url === '') ? EMP_URL_AJAX : this.get_data_url.employee_url
       this.tableHeaders = (Array.isArray(this.headers) && this.headers.length !== 0) ? this.headers : HEADERS
       this.display_nonactive = this.showNonActive
-      this.getOUList()
+      this.getOU()
     },
     cancel () {
       this.$emit('input', false)
     },
     clear () {
       this.$refs.form.reset()
+      if (this.ouDisplayType == 'treeview') {
+        this.clearTreeOU()
+      }
       this.employee = Object.assign({}, EMPLOYEE_INIT)
       this.employees = []
       this.show_list = false
@@ -508,10 +569,57 @@ export default {
         return ''
       }
     },
+    getOU () {
+      if (this.ouDisplayType == 'select') {
+        this.getOUList()
+      } else {
+        this.getOUTree()
+      }
+    },
     getOUList() {
       ORGUNIT.getList (this.orgunit, this.get_data_url.orgunit_url, (data) => {
         this.orgunits = data
       })
+    },
+    initTreeOU () {
+      this.$refs.tree.updateAll(false)
+      this.init_opened_ou = [{ "id": 1}]
+    },
+    getOUTree() {
+      ORGUNIT.getTree (this.get_data_url.orgunit_url, (data) => {
+        this.orgunits = data
+        this.initTreeOU()
+      })
+    },
+    getSelectedOU (value) {
+      if (value.length != 0) {
+        this.employee.idou = (value[0].id != 1) ? value[0].id : 0
+        this.orgunit.OUName = (value[0].id != 1) ? value[0].description : 'Administration communale de la ville de Lausanne'
+        this.show_ou = false
+      }
+    },
+    clearTreeOU () {
+      this.employee.idou = null
+      this.orgunit.OUName = ''
+      this.ou_search = ''
+      this.active_ou = [{id:1}]
+      this.initTreeOU()
+    },
+    searchOU (val) {
+      if ((val) && (val.length > 2)) {
+        if (!this.allOpenedOU) {
+          this.lastOpenedOU = this.openedOU
+          this.allOpenedOU = true
+          this.$refs.tree.updateAll(true)
+        }
+      } else {
+        this.$refs.tree.updateAll(false)
+        this.allOpenedOU = false
+        this.openedOU = this.lastOpenedOU
+      }
+    },
+    showOU () {
+      this.show_ou = true
     },
     isEqual (obj1, obj2) {
       let __isequal = true
@@ -581,6 +689,21 @@ td {
 }
 .inactif {
   color: red;
+}
+.tree-ou {
+  position: absolute;
+  padding: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-75%, -75%);
+  z-index: 100;
+}
+.tree-ou-text {
+  overflow-y: auto;
+  max-height: 500px;
+}
+.v-content__wrap {
+  position: relative;
 }
 </style>
 
