@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-xs @keyup.enter="fetchData">
-    <v-layout row>
+    <v-layout wrap>
 
       <v-flex xs12>
         <v-card>
