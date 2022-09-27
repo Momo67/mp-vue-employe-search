@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "cgil-log": "^1.0.5",
-    "core-js": "^3.25.2",
+    "core-js": "^3.25.3",
     "fibers": "^5.0.3",
     "jshint": "^2.13.5",
     "jsonpath": "^1.0.2",
-    "mp-vue-employe": "^1.13.2",
+    "mp-vue-employe": "^1.14.0",
     "postcss": "^8.4.16",
     "vue": "^2.7.10",
     "vue-i18n": "^8.22.2",
