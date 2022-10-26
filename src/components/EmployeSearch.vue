@@ -308,7 +308,6 @@
 
 <script>
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-//import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loader
 
 import { DEV, ORGUNIT_INIT, EMPLOYEE_INIT, HEADERS } from '../config'
 import { ORGUNIT_URL_AJAX, EMP_URL_AJAX } from '../config'
