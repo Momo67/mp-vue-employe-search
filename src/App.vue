@@ -103,8 +103,8 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-import EmployeSearch from './components/EmployeSearch'
+import HelloWorld from './components/HelloWorld.vue'
+import EmployeSearch from './components/EmployeSearch.vue'
 import Employe from 'mp-vue-employe'
 
 import { employe } from 'mp-vue-employe/src/components/employe'

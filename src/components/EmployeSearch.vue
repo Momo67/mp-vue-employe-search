@@ -314,7 +314,7 @@ import { ORGUNIT_URL_AJAX, EMP_URL_AJAX } from '../config'
 import { employe as EMPLOYE } from './employe'
 import { orgunit as ORGUNIT } from './orgunit'
 
-import Log from 'cgil-log'
+import { Log } from 'cgil-log'
 import jsonpath from 'jsonpath'
 
 const MODULE_NAME = 'EmployeSearch.vue'
