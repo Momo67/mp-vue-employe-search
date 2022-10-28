@@ -11,7 +11,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: 'src/components/EmployeSearch.vue',
-      name: 'Employe',
+      name: 'EmployeSearch',
       fileName: (format) => `EmployeSearch.${format}.js`,
     },
     rollupOptions: {
