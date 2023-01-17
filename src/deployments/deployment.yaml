@@ -77,8 +77,8 @@ roleRef:
   name: service-reader-role
   apiGroup: rbac.authorization.k8s.io
 ---
-apiVersion: v1
 kind: Service                    # Type of kubernetes resource
+apiVersion: v1
 metadata:
   name: mp-employe-search-service   # Name of the resource
   namespace: test-mp-employe-search
@@ -130,7 +130,7 @@ spec:
           - 100
       containers:
       - name: mp-employe-search
-        image: ghcr.io/momo67/mp-employe-search:1.0
+        image: ghcr.io/momo67/mp-vue-employe-search:1.0
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -191,16 +191,16 @@ spec:
       imagePullSecrets:
       - name: dockerconfigjson-github-com                
 ---
-kind: Secret
-type: kubernetes.io/dockerconfigjson
-apiVersion: v1
-metadata:
-  name: dockerconfigjson-github-com
-  labels:
-    app: mp-employe-search
-data:
-  .dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiJiVzl0YnpZM09tZG9jRjlUV1VKbU1VcFRkVEJsTUd0c1pVbE9kRkV5U0ZSUE4zQmFWVEZLU1hFemVERTROSEU9In19fQ==
----
+# kind: Secret
+# type: kubernetes.io/dockerconfigjson
+# apiVersion: v1
+# metadata:
+#   name: dockerconfigjson-github-com
+#   labels:
+#     app: mp-employe-search
+# data:
+#   .dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiJiVzl0YnpZM09tZG9jRjlUV1VKbU1VcFRkVEJsTUd0c1pVbE9kRkV5U0ZSUE4zQmFWVEZLU1hFemVERTROSEU9In19fQ==
+# ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
