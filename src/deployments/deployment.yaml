@@ -191,16 +191,17 @@ spec:
       imagePullSecrets:
       - name: dockerconfigjson-github-com                
 ---
-# kind: Secret
-# type: kubernetes.io/dockerconfigjson
-# apiVersion: v1
-# metadata:
-#   name: dockerconfigjson-github-com
-#   labels:
-#     app: mp-employe-search
-# data:
-#   .dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiJiVzl0YnpZM09tZG9jRjlUV1VKbU1VcFRkVEJsTUd0c1pVbE9kRkV5U0ZSUE4zQmFWVEZLU1hFemVERTROSEU9In19fQ==
-# ---
+kind: Secret
+apiVersion: v1
+type: kubernetes.io/dockerconfigjson
+metadata:
+  name: dockerconfigjson-github-com
+  namespace: test-mp-employe-search
+  labels:
+    app: mp-employe-search
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiJiVzl0YnpZM09tZG9jRjlUV1VKbU1VcFRkVEJsTUd0c1pVbE9kRkV5U0ZSUE4zQmFWVEZLU1hFemVERTROSEU9In19fQ==
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
