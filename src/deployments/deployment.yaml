@@ -98,9 +98,9 @@ spec:
   loadBalancerSourceRanges:
     - 192.168.0.0/16
   ports:                         # Take incoming HTTP requests on this port (exposed) and forward them to the targetPort of container
-    - name: http
+    - name: http-web
       port: 8000
-      targetPort: 8000            # Should match the PORT env variable in deployment and containerPort that the Go application listens on
+      targetPort: 80            # Should match the PORT env variable in deployment and containerPort that the Go application listens on
   selector:
     app: mp-employe-search         # Map any pod with this label `app=mp-employe-search` to this service
 ---
@@ -121,28 +121,28 @@ spec:
       labels:                    # The labels that will be applied to all the pods in this deployment
         app: mp-employe-search
     spec:                        # Spec for the container which will run in the Pod
-      securityContext:           # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-        runAsUser: 1221           # using a non privileged user
-        runAsGroup: 1221          # using the group 'gouser' created in Dockerfile
-        fsGroup: 100             # by adding fsGroup field, all processes of the container are also part
-                                 # of the supplementary group ID 100 (users).
-        supplementalGroups:
-          - 100
+      # securityContext:           # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+      #   runAsUser: 1221           # using a non privileged user
+      #   runAsGroup: 1221          # using the group 'gouser' created in Dockerfile
+      #   fsGroup: 100             # by adding fsGroup field, all processes of the container are also part
+      #                            # of the supplementary group ID 100 (users).
+      #   supplementalGroups:
+      #     - 100
       containers:
       - name: mp-employe-search
         image: ghcr.io/momo67/mp-vue-employe-search:1.0
         imagePullPolicy: Always
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          runAsUser: 1221           # using the user 'gouser' created in Dockerfile
-          runAsGroup: 1221          # using the group 'gouser' created in Dockerfile
-          capabilities:
-            drop:
-              - 'ALL'
-          readOnlyRootFilesystem: true
+        # securityContext:
+        #   allowPrivilegeEscalation: false
+        #   runAsNonRoot: true
+        #   runAsUser: 1221           # using the user 'gouser' created in Dockerfile
+        #   runAsGroup: 1221          # using the group 'gouser' created in Dockerfile
+        #   capabilities:
+        #     drop:
+        #       - 'ALL'
+        #   readOnlyRootFilesystem: true
         ports:
-          - containerPort: 8000  # Should match the PORT env variable above  that the Go application listens on
+          - containerPort: 80  # Should match the PORT env variable above  that the Go application listens on
         resources:
           limits:            # resource limit imposed to the pod, the container cannot utilize more res than specified
             cpu: 1000m       # 1000 millicpu or millicores 1 or 100% of a CPU core of a running node
@@ -153,7 +153,7 @@ spec:
         livenessProbe:           # To check the health of the Pod
           httpGet:
             path: /health
-            port: 8000
+            port: 80
             scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 15
@@ -161,13 +161,13 @@ spec:
         readinessProbe:          # To check if the Pod is ready to serve traffic or not
           httpGet:
             path: /readiness
-            port: 8000
+            port: 80
             scheme: HTTP
           initialDelaySeconds: 5
           timeoutSeconds: 2
         env:
           - name: PORT
-            value: "8000"
+            value: "80"
           - name: MY_NODE_NAME
             valueFrom:
               fieldRef:
