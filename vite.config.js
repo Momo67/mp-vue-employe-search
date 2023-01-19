@@ -5,13 +5,20 @@ import { VuetifyResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 
 export default defineConfig({
+  base: './',
   define: {
     'process.env': process.env
   },
   build: {
+    rollupOptions: {
+      input: './index.html',
+    },
+  },
+  /*
+  build: {
     lib: {
       entry: 'src/components/EmployeSearch.vue',
-      name: 'Employe',
+      name: 'EmployeSearch',
       fileName: (format) => `EmployeSearch.${format}.js`,
     },
     rollupOptions: {
@@ -24,6 +31,7 @@ export default defineConfig({
       },
     },
   },
+  */
   plugins: [
     createVuePlugin(/* options */),
     createI18nPlugin(),
