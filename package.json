@@ -16,7 +16,7 @@
     "jshint": "^2.13.5",
     "jsonpath": "^1.0.2",
     "mp-vue-employe": "^1.14.0",
-    "postcss": "^8.4.16",
+    "postcss": "^8.4.31",
     "vue": "^2.7.10",
     "vue-i18n": "^8.22.2",
     "vuetify": "^2.6.10"
