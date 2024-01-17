@@ -9,12 +9,13 @@ export default defineConfig({
   define: {
     'process.env': process.env
   },
+  /*
   build: {
     rollupOptions: {
       input: './index.html',
     },
   },
-  /*
+  */
   build: {
     lib: {
       entry: 'src/components/EmployeSearch.vue',
@@ -31,7 +32,6 @@ export default defineConfig({
       },
     },
   },
-  */
   plugins: [
     createVuePlugin(/* options */),
     createI18nPlugin(),

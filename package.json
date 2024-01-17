@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build --mode development",
+    "build_prod": "vite build --mode production",
     "preview": "vite preview",
     "lint": "vue-cli-service lint"
   },
