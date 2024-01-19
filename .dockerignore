@@ -1,0 +1,10 @@
+# exclude dot-files (.env, .git, ...)
+.*
+!.env
+
+# logs
+logs
+*.log
+
+# dependency directory
+node_modules

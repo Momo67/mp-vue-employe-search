@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { DEV } from '../config'
-import Log from 'cgil-log'
+import { Log } from 'cgil-log'
 
 const MODULE_NAME = 'employe.js'
 const log = (DEV) ? new Log(MODULE_NAME, 4) : new Log(MODULE_NAME, 2)
