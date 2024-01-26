@@ -1,5 +1,4 @@
 <template>
-  <v-app>
   <v-container grid-list-xs @keyup.enter="fetchData" app>
     <v-layout wrap>
 
@@ -283,7 +282,6 @@
                       </v-card>
                     </td>
                   </template>
-
                   <template v-slot:no-data>
                     <v-alert :value="true" color="info" icon="info">
                       {{$t('userInterface.noResult')}}
@@ -305,7 +303,6 @@
       </v-flex>
     </v-layout>
   </v-container>
-</v-app>
 </template>
 
 <script>
