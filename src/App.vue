@@ -119,7 +119,7 @@ export default {
   },
   data: () => ({
     dialog: false,
-    get_data_url: {orgunit_url: 'http://mygolux.lausanne.ch/goeland/uniteorg/ajax', employee_url: 'http://mygolux.lausanne.ch/goeland/employe/ajax'},
+    get_data_url: {orgunit_url: 'http://localhost/goeland/uniteorg/ajax', employee_url: 'http://localhost/goeland/employe/ajax'},
     isEditable: false
     //
   }),

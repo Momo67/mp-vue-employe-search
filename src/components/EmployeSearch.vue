@@ -1,5 +1,4 @@
 <template>
-  <v-app>
   <v-container grid-list-xs @keyup.enter="fetchData" app>
     <v-layout wrap>
 
@@ -38,7 +37,7 @@
           </v-card-actions>
           <v-card-text>
             <v-container grid-list-md class="pt-0 pb-0">
-              <v-form ref="form">
+              <v-form ref="form" v-model="form_validity">
                 <v-layout wrap>
 
                   <template v-if="ouDisplayType == 'select'">
@@ -132,7 +131,7 @@
           <v-card-actions>
             <slot name="search" v-bind:on="{ fetchData }">
               <v-spacer></v-spacer>
-              <v-btn color="info" text @click.native="fetchData">{{$t('userInterface.searchBtn')}}</v-btn>
+              <v-btn color="info" text :disabled="!form_validity" @click.native="fetchData">{{$t('userInterface.searchBtn')}}</v-btn>
             </slot>
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
@@ -283,7 +282,6 @@
                       </v-card>
                     </td>
                   </template>
-
                   <template v-slot:no-data>
                     <v-alert :value="true" color="info" icon="info">
                       {{$t('userInterface.noResult')}}
@@ -305,7 +303,6 @@
       </v-flex>
     </v-layout>
   </v-container>
-</v-app>
 </template>
 
 <script>
@@ -411,6 +408,7 @@ export default {
     return {
       show: true,
       show_form: true,
+      form_validity: null,
       show_list: false,
       list_page: 1,
       alert: false,
@@ -474,7 +472,7 @@ export default {
   computed: {
     computedSortByField: {
       get: function () {
-        return (this.sortByField === '') || (this.sortByField === []) ? [this.tableHeaders[0].value, this.tableHeaders[1].value] : this.sortByField
+        return (this.sortByField === '') || (this.sortByField == []) ? [this.tableHeaders[0].value, this.tableHeaders[1].value] : this.sortByField
       },
       set: function () {
 
