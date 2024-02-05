@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-xs @keyup.enter="fetchData" app>
+  <v-container grid-list-xs @keyup.enter="fetchData" data-app>
     <v-layout wrap>
 
       <v-flex xs12>
@@ -74,7 +74,8 @@
                                         hide-details
                                         clearable
                                         @input="searchOU"
-                                        ></v-text-field>
+                                        >
+                            </v-text-field>
                         </v-sheet>
                         <v-card-text class="tree-ou-text">
                           <v-treeview ref="tree"
@@ -601,7 +602,7 @@ export default {
       this.employee.idou = null
       this.orgunit.OUName = ''
       this.ou_search = ''
-      this.active_ou = [{id:1}]
+      //this.active_ou = [{id:1}]
       this.initTreeOU()
     },
     searchOU (val) {
